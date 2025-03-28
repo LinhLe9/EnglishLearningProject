@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "generated.grpc.newwordsservice";
+option java_outer_classname = "NewWordsServiceImpl";
+
+package NewWordsService;
+
+service NewWordsService {
+    // Client sends a topic, server returns a stream of words related to the topic
+    // server streaming
+    rpc WordsByTopic(Topic) returns (stream WordList) {}
+
+    // Client sends a word, server returns the word definition
+    // unary
+    rpc WordDefinition(Word) returns (WordDetail) {}
+}
+    // Message identifying a Topic
+    message Topic {
+        string topic = 1;
+    }
+
+    // Message identifying a list of words
+    message WordList {
+        string word = 1;
+        string pronunciation = 2;
+        string definition = 3;
+        
+    }
+
+    // Message identifying a single word
+    message Word {
+        string word = 1;
+    }
+
+    // Message identifying word details
+    message WordDetail {
+        string word = 1;
+        string pronunciation = 2;
+        string definition = 3;
+        string example = 4;
+    }

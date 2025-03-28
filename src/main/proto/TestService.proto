@@ -1,0 +1,133 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "generated.grpc.testservice";
+option java_outer_classname = "TestServiceImpl";
+
+package TestService;
+
+service TestService {
+    // Unary request for selecting test type
+    rpc getTest(TestType) returns (TestResponse) {}
+
+    // Listening - bidirectional streaming
+    rpc getListeningTest (stream ListeningResponse) returns (stream ListeningQuestionOrScore) {}
+
+    // Speaking - bidirectional streaming
+    rpc getSpeakingTest (stream SpeakingResponse) returns (stream SpeakingQuestionOrScore) {}
+
+    // Reading - bidirectional streaming
+    rpc getReadingTest (stream ReadingResponse) returns (stream ReadingQuestionOrScore) {}
+
+    // Writing - bidirectional streaming
+    rpc getWritingTest (stream WritingResponse) returns (stream WritingQuestionOrScore) {}
+}
+  
+    // Enum for test categories
+    enum TestCategory {
+        READING = 0;
+        LISTENING = 1;
+        SPEAKING = 2;
+        WRITING = 3;
+    }
+
+    // Message identifying the test type
+    message TestType {
+        TestCategory testType = 1;
+    }
+
+    // Message identifying the TestResponse - Response for test selection
+    message TestResponse {
+        string message = 1;
+    }
+
+    // Message identifying the Listening Question
+    message ListeningQuestion {
+        int32 questionId = 1;
+        string question = 2;
+        bytes sound = 3;
+        int32 maxScore = 4;
+    }
+
+    // Listening Response (client answers)
+    message ListeningResponse {
+        int32 questionId = 1;
+        string answer = 2;
+    }
+
+    // Listening Average Score
+    message AverageScore {
+        double averageScore = 1;
+    }
+
+    // Listening Question or Score
+    message ListeningQuestionOrScore {
+        oneof message {
+            ListeningQuestion question = 1;
+            AverageScore finalScore = 2;
+        }
+    }
+
+    // Speaking Question
+    message SpeakingQuestion {
+        int32 questionId = 1;
+        string question = 2;
+        int32 maxScore = 3;
+    }
+
+    // Speaking Response (client audio answer)
+    message SpeakingResponse {
+        int32 questionId = 1;
+        bytes answer = 2;
+    }
+
+    // Speaking Question or Score
+    message SpeakingQuestionOrScore {
+        oneof message {
+            SpeakingQuestion question = 1;
+            AverageScore finalScore = 2;
+        }
+    }
+
+    // Reading Question
+    message ReadingQuestion {
+        int32 questionId = 1;
+        string question = 2;
+        string correctAnswer = 3;
+        int32 maxScore = 4;
+    }
+
+    // Reading Response
+    message ReadingResponse {
+        int32 questionId = 1;
+        string answer = 2;
+    }
+
+    // Reading Question or Score
+    message ReadingQuestionOrScore {
+        oneof message {
+            ReadingQuestion question = 1;
+            AverageScore finalScore = 2;
+        }
+    }
+
+    // Writing Question
+    message WritingQuestion {
+        int32 questionId = 1;
+        string question = 2;
+        int32 maxScore = 3;
+    }
+
+    // Writing Response
+    message WritingResponse {
+        int32 questionId = 1;
+        string answer = 2;
+    }
+
+    // Writing Question or Score
+    message WritingQuestionOrScore {
+        oneof message {
+            WritingQuestion question = 1;
+            AverageScore finalScore = 2;
+        }
+    }

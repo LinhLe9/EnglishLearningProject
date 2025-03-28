@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+
+option java_multiple_files = true;
+option java_package = "generated.grpc.scorecalculateservice";
+option java_outer_classname = "ScoreCalculateServiceImpl";
+
+package ScoreCalculateService;
+
+// Interface exported by the server.
+service ScoreCalculateService {
+
+    // Client sends a stream of individual SkillScore messages
+    // Server calculates the average based on these individual scores and returns the final average score.
+    rpc calculateAverageScore(stream SkillScore) returns (FinalScore);
+
+    // Client requests to convert the IELTS score into other English Certificate scores.
+    // Server returns a stream of respective scores.
+    rpc convertToOtherScores(IeltsScore) returns (stream ConvertedScore);
+}
+
+// Message defining a single skill score (for one skill at a time).
+message SkillScore {
+    double score = 2; 
+}
+
+// Message defining the final calculated average score.
+message FinalScore {
+    double average_score = 1;
+}
+
+// Message defining the IELTS overall band score.
+message IeltsScore {
+    double overall_band = 1;
+}
+
+// Message defining the equivalent scores for other English certificates.
+message ConvertedScore {
+    string certificate_name = 1;
+    double equivalent_score = 2;
+}
