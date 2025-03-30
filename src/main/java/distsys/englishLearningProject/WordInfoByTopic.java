@@ -9,11 +9,13 @@ package distsys.englishLearningProject;
  * @author DELL
  */
 public class WordInfoByTopic {
+    private String word;
     private String pronunciation;
     private String position;
     private String definition;
 
-    public WordInfoByTopic(String pronunciation, String position, String definition) {
+    public WordInfoByTopic(String word, String pronunciation, String position, String definition) {
+        this.word = word;
         this.pronunciation = pronunciation;
         this.position = position;
         this.definition = definition;
@@ -43,9 +45,18 @@ public class WordInfoByTopic {
         this.definition = definition;
     }
 
+    public String getWord() {
+        return word;
+    }
+
+    public void setWord(String word) {
+        this.word = word;
+    }
+
+    
     @Override
     public String toString() {
-        return "/" + pronunciation + "/ (" + position + ") :" + definition;
+        return word + " " + pronunciation + " (" + position + ") :" + definition;
     }
     
     

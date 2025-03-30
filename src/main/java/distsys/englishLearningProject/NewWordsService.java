@@ -3,14 +3,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package distsys.englishLearningProject;
+import com.google.protobuf.ByteString;
 import generated.grpc.newwordsservice.WordDetail;
 import generated.grpc.newwordsservice.Word;
+import generated.grpc.newwordsservice.Topic;
+import generated.grpc.newwordsservice.WordList;
 
 import generated.grpc.newwordsservice.NewWordsServiceGrpc.NewWordsServiceImplBase;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
 /**
  *
@@ -31,7 +38,7 @@ public class NewWordsService extends NewWordsServiceImplBase {
                     .build()
                     .start();
             logger.info("Server started, listening on " + port);
-            System.out.println("***** Server started, listening on" + port);
+            System.out.println("***** Server started, listening on " + port);
             server.awaitTermination();
 
         } catch (IOException e) {
@@ -52,8 +59,8 @@ public class NewWordsService extends NewWordsServiceImplBase {
      * @param response
      */
     
-    //@Override
-    public void WordDefinition(Word request, StreamObserver<WordDetail> response) {
+    @Override
+    public void wordDefinition(Word request, StreamObserver<WordDetail> response) {
         WordDictionary myW = new WordDictionary();
         // gets all the temperatures recorded for the location and returns the first one on the list
         WordInfo result = myW.getDetail(request.getWord());
@@ -62,6 +69,26 @@ public class NewWordsService extends NewWordsServiceImplBase {
                             .setExample(result.getExample())
                             .build();
         response.onNext(detail);
+        response.onCompleted();
+    }
+    
+    /**
+     * SERVER STREAMING 
+     * rpc WordsByTopic(Topic) returns (stream WordList) {}
+     */
+    @Override
+    public void wordsByTopic(Topic request, StreamObserver<WordList> response) {
+       WordListByTopic wlbt = new WordListByTopic();
+       List<WordInfoByTopic> wordResponse = wlbt.getWordByTopic(request.getTopic());
+       Iterator<WordInfoByTopic> i = wordResponse.iterator();
+       while (i.hasNext()) {
+            WordInfoByTopic value = i.next();
+            WordList word = WordList.newBuilder().setDefinition(value.getDefinition())
+                            .setPronunciation(value.getPronunciation())
+                            .setWord(value.getWord())
+                            .build();
+            response.onNext(word);
+        }
         response.onCompleted();
     }
 }
