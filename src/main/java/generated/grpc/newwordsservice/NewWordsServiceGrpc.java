@@ -27,6 +27,38 @@ public final class NewWordsServiceGrpc {
   public static final String SERVICE_NAME = "NewWordsService.NewWordsService";
 
   // Static method descriptors that strictly reflect the proto.
+  private static volatile io.grpc.MethodDescriptor<com.google.protobuf.Empty,
+      generated.grpc.newwordsservice.Topic> getTopicRequestMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "TopicRequest",
+      requestType = com.google.protobuf.Empty.class,
+      responseType = generated.grpc.newwordsservice.Topic.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+  public static io.grpc.MethodDescriptor<com.google.protobuf.Empty,
+      generated.grpc.newwordsservice.Topic> getTopicRequestMethod() {
+    io.grpc.MethodDescriptor<com.google.protobuf.Empty, generated.grpc.newwordsservice.Topic> getTopicRequestMethod;
+    if ((getTopicRequestMethod = NewWordsServiceGrpc.getTopicRequestMethod) == null) {
+      synchronized (NewWordsServiceGrpc.class) {
+        if ((getTopicRequestMethod = NewWordsServiceGrpc.getTopicRequestMethod) == null) {
+          NewWordsServiceGrpc.getTopicRequestMethod = getTopicRequestMethod = 
+              io.grpc.MethodDescriptor.<com.google.protobuf.Empty, generated.grpc.newwordsservice.Topic>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+              .setFullMethodName(generateFullMethodName(
+                  "NewWordsService.NewWordsService", "TopicRequest"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.google.protobuf.Empty.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  generated.grpc.newwordsservice.Topic.getDefaultInstance()))
+                  .setSchemaDescriptor(new NewWordsServiceMethodDescriptorSupplier("TopicRequest"))
+                  .build();
+          }
+        }
+     }
+     return getTopicRequestMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<generated.grpc.newwordsservice.Topic,
       generated.grpc.newwordsservice.WordList> getWordsByTopicMethod;
 
@@ -120,6 +152,16 @@ public final class NewWordsServiceGrpc {
 
     /**
      * <pre>
+     * Server returns available topic from the database
+     * </pre>
+     */
+    public void topicRequest(com.google.protobuf.Empty request,
+        io.grpc.stub.StreamObserver<generated.grpc.newwordsservice.Topic> responseObserver) {
+      asyncUnimplementedUnaryCall(getTopicRequestMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
      * Client sends a topic, server returns a stream of words related to the topic
      * server streaming
      * </pre>
@@ -142,6 +184,13 @@ public final class NewWordsServiceGrpc {
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
+          .addMethod(
+            getTopicRequestMethod(),
+            asyncServerStreamingCall(
+              new MethodHandlers<
+                com.google.protobuf.Empty,
+                generated.grpc.newwordsservice.Topic>(
+                  this, METHODID_TOPIC_REQUEST)))
           .addMethod(
             getWordsByTopicMethod(),
             asyncServerStreamingCall(
@@ -176,6 +225,17 @@ public final class NewWordsServiceGrpc {
     protected NewWordsServiceStub build(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
       return new NewWordsServiceStub(channel, callOptions);
+    }
+
+    /**
+     * <pre>
+     * Server returns available topic from the database
+     * </pre>
+     */
+    public void topicRequest(com.google.protobuf.Empty request,
+        io.grpc.stub.StreamObserver<generated.grpc.newwordsservice.Topic> responseObserver) {
+      asyncServerStreamingCall(
+          getChannel().newCall(getTopicRequestMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -219,6 +279,17 @@ public final class NewWordsServiceGrpc {
     protected NewWordsServiceBlockingStub build(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
       return new NewWordsServiceBlockingStub(channel, callOptions);
+    }
+
+    /**
+     * <pre>
+     * Server returns available topic from the database
+     * </pre>
+     */
+    public java.util.Iterator<generated.grpc.newwordsservice.Topic> topicRequest(
+        com.google.protobuf.Empty request) {
+      return blockingServerStreamingCall(
+          getChannel(), getTopicRequestMethod(), getCallOptions(), request);
     }
 
     /**
@@ -276,8 +347,9 @@ public final class NewWordsServiceGrpc {
     }
   }
 
-  private static final int METHODID_WORDS_BY_TOPIC = 0;
-  private static final int METHODID_WORD_DEFINITION = 1;
+  private static final int METHODID_TOPIC_REQUEST = 0;
+  private static final int METHODID_WORDS_BY_TOPIC = 1;
+  private static final int METHODID_WORD_DEFINITION = 2;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -296,6 +368,10 @@ public final class NewWordsServiceGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
+        case METHODID_TOPIC_REQUEST:
+          serviceImpl.topicRequest((com.google.protobuf.Empty) request,
+              (io.grpc.stub.StreamObserver<generated.grpc.newwordsservice.Topic>) responseObserver);
+          break;
         case METHODID_WORDS_BY_TOPIC:
           serviceImpl.wordsByTopic((generated.grpc.newwordsservice.Topic) request,
               (io.grpc.stub.StreamObserver<generated.grpc.newwordsservice.WordList>) responseObserver);
@@ -365,6 +441,7 @@ public final class NewWordsServiceGrpc {
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new NewWordsServiceFileDescriptorSupplier())
+              .addMethod(getTopicRequestMethod())
               .addMethod(getWordsByTopicMethod())
               .addMethod(getWordDefinitionMethod())
               .build();

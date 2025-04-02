@@ -52,7 +52,7 @@ public class NewWordsService extends NewWordsServiceImplBase {
 
     }
     /**
-     * UNARY for a specific location get the temperature right now rpc
+     * UNARY 
      * WordDefinition(Word) returns (WordDetail) {}
      *
      * @param request
@@ -88,6 +88,22 @@ public class NewWordsService extends NewWordsServiceImplBase {
                             .setWord(value.getWord())
                             .build();
             response.onNext(word);
+        }
+        response.onCompleted();
+    }
+    
+    /** Server stream 
+     * rpc TopicRequest () returns (stream Topic){}
+     */
+    @Override
+    public void topicRequest (com.google.protobuf.Empty request, StreamObserver<Topic> response){
+        WordListByTopic wlbt = new WordListByTopic();
+        List<String> topic = wlbt.getAllTopics();
+        Iterator<String> i = topic.iterator();
+        while (i.hasNext()) {
+            String value = i.next();
+            Topic myT = Topic.newBuilder().setTopic(value).build();
+            response.onNext(myT);
         }
         response.onCompleted();
     }

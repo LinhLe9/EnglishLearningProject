@@ -5,8 +5,12 @@ option java_package = "generated.grpc.newwordsservice";
 option java_outer_classname = "NewWordsServiceImpl";
 
 package NewWordsService;
+import "google/protobuf/empty.proto";  // Import Empty type
 
 service NewWordsService {
+    // Server returns available topic from the database
+    rpc TopicRequest(google.protobuf.Empty) returns (stream Topic){}
+    
     // Client sends a topic, server returns a stream of words related to the topic
     // server streaming
     rpc WordsByTopic(Topic) returns (stream WordList) {}
@@ -40,3 +44,4 @@ service NewWordsService {
         string definition = 3;
         string example = 4;
     }
+

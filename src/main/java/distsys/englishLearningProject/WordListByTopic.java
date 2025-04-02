@@ -79,6 +79,10 @@ public class WordListByTopic {
         return mapWordList.get(topic);
     }
     
+    public List<String> getAllTopics() {
+        return new ArrayList<>(mapWordList.keySet());
+    }
+    
     public  static void main (String args[]){
         WordListByTopic myW = new WordListByTopic();
         System.out.println(myW.toString());

@@ -44,17 +44,20 @@ public final class NewWordsServiceImpl {
   static {
     java.lang.String[] descriptorData = {
       "\n\025NewWordsService.proto\022\017NewWordsService" +
-      "\"\026\n\005Topic\022\r\n\005topic\030\001 \001(\t\"C\n\010WordList\022\014\n\004" +
-      "word\030\001 \001(\t\022\025\n\rpronunciation\030\002 \001(\t\022\022\n\ndef" +
-      "inition\030\003 \001(\t\"\024\n\004Word\022\014\n\004word\030\001 \001(\t\"V\n\nW" +
-      "ordDetail\022\014\n\004word\030\001 \001(\t\022\025\n\rpronunciation" +
-      "\030\002 \001(\t\022\022\n\ndefinition\030\003 \001(\t\022\017\n\007example\030\004 " +
-      "\001(\t2\240\001\n\017NewWordsService\022E\n\014WordsByTopic\022" +
-      "\026.NewWordsService.Topic\032\031.NewWordsServic" +
-      "e.WordList\"\0000\001\022F\n\016WordDefinition\022\025.NewWo" +
-      "rdsService.Word\032\033.NewWordsService.WordDe" +
-      "tail\"\000B7\n\036generated.grpc.newwordsservice" +
-      "B\023NewWordsServiceImplP\001b\006proto3"
+      "\032\033google/protobuf/empty.proto\"\026\n\005Topic\022\r" +
+      "\n\005topic\030\001 \001(\t\"C\n\010WordList\022\014\n\004word\030\001 \001(\t\022" +
+      "\025\n\rpronunciation\030\002 \001(\t\022\022\n\ndefinition\030\003 \001" +
+      "(\t\"\024\n\004Word\022\014\n\004word\030\001 \001(\t\"V\n\nWordDetail\022\014" +
+      "\n\004word\030\001 \001(\t\022\025\n\rpronunciation\030\002 \001(\t\022\022\n\nd" +
+      "efinition\030\003 \001(\t\022\017\n\007example\030\004 \001(\t2\344\001\n\017New" +
+      "WordsService\022B\n\014TopicRequest\022\026.google.pr" +
+      "otobuf.Empty\032\026.NewWordsService.Topic\"\0000\001" +
+      "\022E\n\014WordsByTopic\022\026.NewWordsService.Topic" +
+      "\032\031.NewWordsService.WordList\"\0000\001\022F\n\016WordD" +
+      "efinition\022\025.NewWordsService.Word\032\033.NewWo" +
+      "rdsService.WordDetail\"\000B7\n\036generated.grp" +
+      "c.newwordsserviceB\023NewWordsServiceImplP\001" +
+      "b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -67,6 +70,7 @@ public final class NewWordsServiceImpl {
     com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          com.google.protobuf.EmptyProto.getDescriptor(),
         }, assigner);
     internal_static_NewWordsService_Topic_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -92,6 +96,7 @@ public final class NewWordsServiceImpl {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_NewWordsService_WordDetail_descriptor,
         new java.lang.String[] { "Word", "Pronunciation", "Definition", "Example", });
+    com.google.protobuf.EmptyProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)
