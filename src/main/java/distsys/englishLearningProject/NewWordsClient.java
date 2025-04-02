@@ -81,10 +81,10 @@ public class NewWordsClient {
     /**
      * UNARY: for a specific location get the temperature right now rpc
      */
-    private void getWordDefinition() {
+    public WordDetail getWordDefinition(String wordSearch) {
         System.out.println("Unary - getCurrentTemperature ");
         Word request = Word.newBuilder()
-                        .setWord("abbacy")
+                        .setWord(wordSearch)
                         .build();
         System.out.println(LocalTime.now().toString() + ": Sending request for " + request);
         
@@ -99,6 +99,7 @@ public class NewWordsClient {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        return response;
     }
     
     

@@ -4,6 +4,7 @@
  */
 package distsys.englishLearningProject;
 
+import generated.grpc.newwordsservice.WordDetail;
 import generated.grpc.newwordsservice.WordList;
 import java.util.Iterator;
 import java.util.List;
@@ -21,9 +22,10 @@ public class NewWordsGUI extends javax.swing.JFrame {
     public NewWordsGUI() {
         initComponents();
                 
+        // create a new instance of NewWordsClient
         newWordClient = new NewWordsClient();
-            System.out.println("newWordClient: " + newWordClient); 
-
+        
+        // update the available topic can be searched
         updateMenu();
     }
 
@@ -38,38 +40,51 @@ public class NewWordsGUI extends javax.swing.JFrame {
 
         jTextField1 = new javax.swing.JTextField();
         resultPane = new javax.swing.JScrollPane();
-        resultArea = new javax.swing.JTextArea();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        TopicResultArea = new javax.swing.JTextArea();
+        TopicComboBox = new javax.swing.JComboBox<>();
+        TopicSearch = new javax.swing.JLabel();
+        WordEnter = new javax.swing.JTextField();
         WordSearch = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        WordResultArea = new javax.swing.JTextArea();
+        SearchWordButton = new javax.swing.JButton();
 
         jTextField1.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        resultArea.setColumns(20);
-        resultArea.setRows(5);
-        resultPane.setViewportView(resultArea);
+        TopicResultArea.setColumns(20);
+        TopicResultArea.setRows(5);
+        resultPane.setViewportView(TopicResultArea);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        TopicComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        TopicComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                TopicComboBoxActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Topic");
+        TopicSearch.setText("Topic");
 
-        jTextField2.setText("Enter your word");
+        WordEnter.setText("Enter your word");
+        WordEnter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                WordEnterActionPerformed(evt);
+            }
+        });
 
         WordSearch.setText("Word");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        WordResultArea.setColumns(20);
+        WordResultArea.setRows(5);
+        jScrollPane1.setViewportView(WordResultArea);
+
+        SearchWordButton.setText("Search");
+        SearchWordButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SearchWordButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -78,46 +93,49 @@ public class NewWordsGUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(resultPane, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(WordSearch))
-                        .addGap(12, 12, 12)
-                        .addComponent(jScrollPane1)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(WordEnter, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
+                        .addComponent(WordSearch)
+                        .addComponent(SearchWordButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(TopicComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TopicSearch))
+                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(resultPane)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(WordSearch)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36))
             .addGroup(layout.createSequentialGroup()
-                .addComponent(resultPane, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(TopicSearch)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(TopicComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(WordSearch)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(WordEnter, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(SearchWordButton)
+                        .addGap(19, 19, 19))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(resultPane, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
+                        .addGap(14, 14, 14))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void TopicComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TopicComboBoxActionPerformed
         // TODO add your handling code here:
 //        String selectedTopic = (String) jComboBox1.getSelectedItem();
-//        System.out.println("Selected Topic: " + selectedTopic); // ✅ Debug topic gửi đi
+//        System.out.println("Selected Topic: " + selectedTopic); // 
 //        Iterator<WordList> responses= newWordClient.getWordsByTopic(selectedTopic);
 //        if (responses == null) {
 //        System.err.println("Error: No response received!");
@@ -127,24 +145,29 @@ public class NewWordsGUI extends javax.swing.JFrame {
 //        resultArea.setText("");
 //        while (responses.hasNext()) {
 //            WordList wordDetail = responses.next();
-//            System.out.println("Received word: " + wordDetail.getWord()); // ✅ Debug dữ liệu nhận được
+//            System.out.println("Received word: " + wordDetail.getWord());
 //            resultString.append(wordDetail.getWord() + "\n"
 //                                + wordDetail.getPronunciation() + " :" 
 //                                + wordDetail.getDefinition() + "\n");
 //        }
 //        resultArea.setText(resultString.toString());
-        String selectedTopic = (String) jComboBox1.getSelectedItem();
+
+        // selected topic to get the topic chosen by user
+        String selectedTopic = (String) TopicComboBox.getSelectedItem();
         if (selectedTopic == null || selectedTopic.isEmpty()) {
             System.err.println("Error: Selected Topic is NULL or EMPTY!");
         return;
     }
+        
+    // call the getWordsByTopic method of newWordClient 
     Iterator<WordList> responses = newWordClient.getWordsByTopic(selectedTopic);
-    if (responses == null) {
+    if (responses == null|| !responses.hasNext()) {
         System.err.println("Error: No response received!");
+        TopicResultArea.setText("No words found for this topic.");
         return;
     }
     StringBuilder resultString = new StringBuilder();
-    resultArea.setText("");
+    TopicResultArea.setText("Fetching words...");
 
     while (responses.hasNext()) {
         WordList wordDetail = responses.next();
@@ -153,17 +176,37 @@ public class NewWordsGUI extends javax.swing.JFrame {
                     .append(wordDetail.getDefinition()).append("\n\n");
     }
 
-    resultArea.setText(resultString.toString());
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    TopicResultArea.setText(resultString.toString());
+    }//GEN-LAST:event_TopicComboBoxActionPerformed
 
+    private void WordEnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WordEnterActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_WordEnterActionPerformed
+
+    private void SearchWordButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchWordButtonActionPerformed
+        // TODO add your handling code here:
+        String wordSearch = WordEnter.getText().trim().toLowerCase();
+        WordDetail response = newWordClient.getWordDefinition(wordSearch);
+        if( response != null){
+            WordResultArea.setText(response.toString());
+        } else {
+            WordResultArea.setText("Word not found in the dictionary");
+        }
+    }//GEN-LAST:event_SearchWordButtonActionPerformed
+
+    // updateMenu method to query all the available topic
     private void updateMenu() {
         List<String> item = newWordClient.getTopicRequest();
         if (item.isEmpty()) {
         System.err.println("No topics received!");
     } else {
-        jComboBox1.removeAllItems();
+        if (item == null || item.isEmpty()) {
+            System.err.println("No topics received!");
+            return;
+        }
+        TopicComboBox.removeAllItems();
         for (String topic : item) {
-            jComboBox1.addItem(topic);
+            TopicComboBox.addItem(topic);
         }
 
     }
@@ -204,14 +247,15 @@ public class NewWordsGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton SearchWordButton;
+    private javax.swing.JComboBox<String> TopicComboBox;
+    private javax.swing.JTextArea TopicResultArea;
+    private javax.swing.JLabel TopicSearch;
+    private javax.swing.JTextField WordEnter;
+    private javax.swing.JTextArea WordResultArea;
     private javax.swing.JLabel WordSearch;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextArea resultArea;
     private javax.swing.JScrollPane resultPane;
     // End of variables declaration//GEN-END:variables
 }
