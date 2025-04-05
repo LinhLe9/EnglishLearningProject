@@ -1,0 +1,46 @@
+﻿TestID,QuestionID,Question,MaxScore
+1,1,"Part 1: Short Essay (150–200 words)
+Topic: Some people believe that students should be required to study art and music in school, while others think it is a waste of time.
+Write an essay expressing your opinion.
+Include reasons and examples to support your point of view.",20
+1,2,"Part 2: Problem-Solution Paragraph (150-180 words)
+Topic: In recent years, plastic pollution has become a major environmental problem. Plastic waste is harming oceans, wildlife, and even human health.
+Write a paragraph (150–180 words) discussing this problem.
+In your paragraph:
+- Describe the causes of plastic pollution
+- Explain why it is a serious issue
+- Suggest one or two possible solutions",35
+1,3,"Part 3: Letter Writing (Formal or Informal) (120–150 words)
+Topic: You recently attended a seminar at a local university. However, you were not satisfied with some aspects of the event.
+Write a letter to the organizer. In your letter:
+- Describe the seminar
+- Explain what you did not like
+- Suggest improvements for future events",45
+2,4,"Part 1: Short Opinion (70–100 words)
+Topic: Do you prefer studying alone or with a group? Why?
+Give reasons for your answer and include examples if possible.
+",20
+2,5,"Part 2: Cause-Effect Paragraph (150–180 words)
+Topic: Many young people today experience high levels of stress.
+Write a paragraph explaining some common causes and the effects of stress on young people’s lives.
+Use appropriate linking words (e.g., because, due to, as a result, this leads to, etc.)",35
+2,6,"Part 3: Argumentative Essay (250–280 words)
+Topic: Some people think governments should invest more money in public transportation instead of building new roads.
+To what extent do you agree or disagree?
+Give reasons for your answer, and support your ideas with relevant examples from your knowledge or experience.",45
+3,7,"Part 1: Personal Experience (70–100 words)
+Topic: Describe a memorable holiday or trip you took. Why was it special to you?
+Include details such as:
+- Where you went
+- What you did
+- Why it was memorable",20
+3,8,"Part 2: Comparison Paragraph ( 150–180 words)
+Topic: Compare life in the city with life in the countryside.
+You can consider aspects like:
+- Environment
+- Job opportunities
+- Lifestyle
+- Transportation",35
+3,9,"Part 3: Discursive Essay (250–280 words)
+Topic: In some countries, students are required to learn a second language from primary school. Do you think this is a good idea? Why or why not?
+Support your opinion with reasons and examples.",45

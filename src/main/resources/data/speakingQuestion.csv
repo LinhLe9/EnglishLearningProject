@@ -1,0 +1,36 @@
+﻿TopicID,Topic,QuestionID ,Question,MaxScore
+1,Hometown,1,1. Where is your hometown?,20
+1,Hometown,2,2. What was it like growing up there?,20
+1,Hometown,3,3. Has it changed much since you were a child?,20
+1,Hometown,4,4. What do you like most about living there?,20
+1,Hometown,5,5. What kinds of things can visitors to your hometown go and see?,20
+2,Home,6,1. Do you live in an apartment or a house?,20
+2,Home,7,2. Is it a large apartment/house?,20
+2,Home,8,3. Who do you live there with?,20
+2,Home,9,4. What is your favourite room in your apartment/house?,20
+2,Home,10,"7. If you could change anything about your apartment/house, what would you change?",20
+3,Studies,11,1. What are you studying?,20
+3,Studies,12,2. Why did you choose that particular course?,20
+3,Studies,13,3. What is your favourite subject?,20
+3,Studies,14,4. Are you friends with many other students on your course?,20
+3,Studies,15,5. What job would you like when you have completed all your studies?,20
+4,Work,16,1. What work do you do?,20
+4,Work,17,2. What do you enjoy most about your work?,20
+4,Work,18,3. What are your main duties?,20
+4,Work,19,4. Is there any other work you would like to do in the future?,20
+4,Work,20,6. Will you have to do more training for your work in the future?,20
+5,Free Time,21,1. What type of activities do you like to do in your free time?,20
+5,Free Time,22,2. How long have you been interested in these activities?,20
+5,Free Time,23,3. Do you like to do theses activities alone or with other people? (Why)?,20
+5,Free Time,24,"4. In your opinion, what is the advantage and disadvantage of your hobby?",20
+5,Free Time,25,5. Do you think people have enough free time? ,20
+6,Family,26,1. How many people are there in your family?,20
+6,Family,27,2. Do you all live in the same house? ,20
+6,Family,28,3. What things do you like doing together?,20
+6,Family,29,4. Are there any gathering activities in your family?,20
+6,Family,30,5. Who is your favourite family member?,20
+7,Neighbours,31,1. Do you know the people who live next door to you?,20
+7,Neighbours,32,2. How often do you see each other?,20
+7,Neighbours,33,3. What kind of relationship do you have?,20
+7,Neighbours,34,4. How can neighbours be helpful?,20
+7,Neighbours,35,5. What kind of problems can people have with their neighbours in a big city?,20

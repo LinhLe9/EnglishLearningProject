@@ -1,0 +1,41 @@
+﻿QuestionID,Question,Answer,AudioID,maxScore
+1,1. The students will be taking exams soon.,TRUE,1,5
+2,2. A revision timetable could be from one to six weeks.,FALSE,1,5
+3,3. No one can really concentrate properly with music on.,FALSE,1,5
+4,"4. You should try to forget about the internet, text messages, Twitter, Facebook, etc. while you're studying.",TRUE,1,5
+5,5. You should try not to have a break until you really need one.,FALSE,1,5
+6,6. Underlining or highlighting your notes is better than writing more notes.,FALSE,1,5
+7,7. Mind maps are good because they mirror the way the brain works.,TRUE,1,5
+8,8. The most important thing is to remember the information. You don't have to understand it.,FALSE,1,5
+9,"1. Some of you are probably fantastic at studying, really organised and good at ________",concentrating,1,5
+10,2. It's a good idea to have some kind of timetable or___________,plan,1,5
+11,"3. If you're studying for an important exam, it's important to think _____________",long term,1,5
+12,"4. Make sure the place where you're going to study is ____________, with no noises distracting.",comfortable,1,5
+13,"5. If you have to work near a TV, you might have to use  _____________  to drown out the sound of the TV.",headphones,1,5
+14,6. You should find out the ________ that works best for you.,music,1,5
+15,"7. While you're studying, you should ____________  the internet, text messages, Facebook, etc.",ignore,1,5
+16,8. You should plan your studying and take regular _____________.,break,1,5
+17,"9. If you study too long, your mind will work less _____________.",effectively,1,5
+18,"10. It is better to write notes, so your mind is ______________ the information more.",processing,1,5
+19,11. Mind maps seem to work in the same way the ________________ works.,brain,1,5
+20,12. Which study method you choose all depends on your personal  _______________.,preference,1,5
+21,1. Wingsuits allow people to fly or glide.,TRUE,2,5
+22,2. Wingsuits are getting cheaper.,TRUE,2,5
+23,3. Gabriele Diamanti's water distiller is powered by the sun.,TRUE,2,5
+24,4. The 'enable talk gloves' help people to use sign language in really cold conditions.,FALSE,2,5
+25,5. James Cameron invented a new underwater camera.,FALSE,2,5
+26,6. MIT students have invented a new type of ketchup.,FALSE,2,5
+27,7. The last invention is a way of producing clouds indoors.,TRUE,2,5
+28,8. The science correspondent thinks the clouds are ugly.,FALSE,2,5
+29,1. Wingsuits are not very  ___________ but the modern ones are better than ever.,new,2,5
+30,2. Last October was the first ever wingsuit world ___________ in China.,championship,2,5
+31,3. You can buy a wingsuit for 600 to ___________ dollars.,2000,2,5
+32,4. The water distiller is for places where it's hard to get clean ___________ water.,drinking,2,5
+33,"5. To produce the water distiller properly, they still need help with ______________.",investment,2,5
+34,6. The 'enable talk gloves' were invented by some Ukrainian _____________.,students,2,5
+35,7. The gloves use sensors to turn sign language into ____________ and then into spoken language. ,text,2,5
+36,8. James Cameron was part of a team which designed a submarine capable of descending to _____________ kilometres down.,10,2,5
+37,9. James Cameron was the first person to do a solo _____________ so deep under the sea.,dive,2,5
+38,10. MIT students have invented a product that helps people get the contents out of _____________ .,bottles,2,5
+39,11. A Dutch __________  has found a way of creating clouds indoors.,artist,2,5
+40,12. You can't make clouds for yourself at ___________ yet.,home,2,5
