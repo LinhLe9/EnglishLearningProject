@@ -1,12 +1,12 @@
 ﻿QuestionID,Question,Answer,AudioPath,maxScore,AudioID
-1,1. The students will be taking exams soon.,TRUE,audio1.wav,5,1
-2,2. A revision timetable could be from one to six weeks.,FALSE,audio1.wav,5,1
-3,3. No one can really concentrate properly with music on.,FALSE,audio1.wav,5,1
-4,"4. You should try to forget about the internet, text messages, Twitter, Facebook, etc. while you're studying.",TRUE,audio1.wav,5,1
-5,5. You should try not to have a break until you really need one.,FALSE,audio1.wav,5,1
-6,6. Underlining or highlighting your notes is better than writing more notes.,FALSE,audio1.wav,5,1
-7,7. Mind maps are good because they mirror the way the brain works.,TRUE,audio1.wav,5,1
-8,8. The most important thing is to remember the information. You don't have to understand it.,FALSE,audio1.wav,5,1
+1,1. The students will be taking exams soon.,true,audio1.wav,5,1
+2,2. A revision timetable could be from one to six weeks.,false,audio1.wav,5,1
+3,3. No one can really concentrate properly with music on.,false,audio1.wav,5,1
+4,"4. You should try to forget about the internet, text messages, Twitter, Facebook, etc. while you're studying.",true,audio1.wav,5,1
+5,5. You should try not to have a break until you really need one.,false,audio1.wav,5,1
+6,6. Underlining or highlighting your notes is better than writing more notes.,false,audio1.wav,5,1
+7,7. Mind maps are good because they mirror the way the brain works.,true,audio1.wav,5,1
+8,8. The most important thing is to remember the information. You don't have to understand it.,false,audio1.wav,5,1
 9,"1. Some of you are probably fantastic at studying, really organised and good at ________",concentrating,audio1.wav,5,1
 10,2. It's a good idea to have some kind of timetable or___________,plan,audio1.wav,5,1
 11,"3. If you're studying for an important exam, it's important to think _____________",long term,audio1.wav,5,1
@@ -19,22 +19,22 @@
 18,"10. It is better to write notes, so your mind is ______________ the information more.",processing,audio1.wav,5,1
 19,11. Mind maps seem to work in the same way the ________________ works.,brain,audio1.wav,5,1
 20,12. Which study method you choose all depends on your personal  _______________.,preference,audio1.wav,5,1
-21,1. Wingsuits allow people to fly or glide.,TRUE,audio2.wav,5,2
-22,2. Wingsuits are getting cheaper.,TRUE,audio2.wav,5,2
-23,3. Gabriele Diamanti's water distiller is powered by the sun.,TRUE,audio2.wav,5,2
-24,4. The 'enable talk gloves' help people to use sign language in really cold conditions.,FALSE,audio2.wav,5,2
-25,5. James Cameron invented a new underwater camera.,FALSE,audio2.wav,5,2
-26,6. MIT students have invented a new type of ketchup.,FALSE,audio2.wav,5,2
-27,7. The last invention is a way of producing clouds indoors.,TRUE,audio2.wav,5,2
-28,8. The science correspondent thinks the clouds are ugly.,FALSE,audio2.wav,5,2
+21,1. Wingsuits allow people to fly or glide.,true,audio2.wav,5,2
+22,2. Wingsuits are getting cheaper.,true,audio2.wav,5,2
+23,3. Gabriele Diamanti's water distiller is powered by the sun.,true,audio2.wav,5,2
+24,4. The 'enable talk gloves' help people to use sign language in really cold conditions.,false,audio2.wav,5,2
+25,5. James Cameron invented a new underwater camera.,false,audio2.wav,5,2
+26,6. MIT students have invented a new type of ketchup.,false,audio2.wav,5,2
+27,7. The last invention is a way of producing clouds indoors.,true,audio2.wav,5,2
+28,8. The science correspondent thinks the clouds are ugly.,false,audio2.wav,5,2
 29,1. Wingsuits are not very  ___________ but the modern ones are better than ever.,new,audio2.wav,5,2
 30,2. Last October was the first ever wingsuit world ___________ in China.,championship,audio2.wav,5,2
-31,3. You can buy a wingsuit for 600 to ___________ dollars.,2000,audio2.wav,5,2
+31,3. You can buy a wingsuit for 600 to ___________ dollars.,two thousands,audio2.wav,5,2
 32,4. The water distiller is for places where it's hard to get clean ___________ water.,drinking,audio2.wav,5,2
 33,"5. To produce the water distiller properly, they still need help with ______________.",investment,audio2.wav,5,2
 34,6. The 'enable talk gloves' were invented by some Ukrainian _____________.,students,audio2.wav,5,2
 35,7. The gloves use sensors to turn sign language into ____________ and then into spoken language. ,text,audio2.wav,5,2
-36,8. James Cameron was part of a team which designed a submarine capable of descending to _____________ kilometres down.,10,audio2.wav,5,2
+36,8. James Cameron was part of a team which designed a submarine capable of descending to _____________ kilometres down.,ten,audio2.wav,5,2
 37,9. James Cameron was the first person to do a solo _____________ so deep under the sea.,dive,audio2.wav,5,2
 38,10. MIT students have invented a product that helps people get the contents out of _____________ .,bottles,audio2.wav,5,2
 39,11. A Dutch __________  has found a way of creating clouds indoors.,artist,audio2.wav,5,2

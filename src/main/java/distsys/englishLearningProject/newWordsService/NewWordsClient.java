@@ -95,7 +95,7 @@ public class NewWordsClient {
                             + response.getDefinition() + "\n"
                             + response.getExample());
         try {
-            Thread.sleep(10000); // Wait for 10 seconds
+            Thread.sleep(10); // Wait for 10 seconds
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

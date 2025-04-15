@@ -38,7 +38,7 @@ public class ReadingTest {
                     int questionID = Integer.parseInt(nextLine[2]);
                     int maxScore = Integer.parseInt(nextLine[5]);
                     
-                    ReadingQuestion question = new ReadingQuestion(nextLine[3], nextLine[4], maxScore, questionID);
+                    ReadingQ question = new ReadingQ(nextLine[3], nextLine[4], maxScore, questionID);
                     
                     ReadingExercise exercise = mapTest.computeIfAbsent(testID, k -> new ReadingExercise(passage));
                     
@@ -55,6 +55,13 @@ public class ReadingTest {
     }
     public Map<Integer, ReadingExercise> getMapTest() {
         return mapTest;
+    }
+    
+    public int getRandomTestId() {
+        List<Integer> keys = new ArrayList<>(mapTest.keySet());
+        if (keys.isEmpty()) return -1; 
+        Random rand = new Random();
+        return keys.get(rand.nextInt(keys.size()));
     }
 
     public static void main(String[] args) {

@@ -29,6 +29,13 @@ public class ListeningTest {
         this.mapTest = mapTest;
     }
     
+    public int getRandomTestId() {
+        List<Integer> keys = new ArrayList<>(mapTest.keySet());
+        if (keys.isEmpty()) return -1; 
+        Random rand = new Random();
+        return keys.get(rand.nextInt(keys.size()));
+    }
+    
     
     
     private void loadExercises(String filePath) {
@@ -47,7 +54,7 @@ public class ListeningTest {
                     String audiopath = nextLine[3];
                     int maxScore = Integer.parseInt(nextLine[4]);
                     int questionID = Integer.parseInt(nextLine[0]);
-                    ListeningQuestion question = new ListeningQuestion(nextLine[1], nextLine[2], maxScore, questionID);
+                    ListeningQ question = new ListeningQ(nextLine[1], nextLine[2], maxScore, questionID);
                     ListeningExercise exercise = mapTest.computeIfAbsent(audioID, k -> new ListeningExercise(audiopath));
                     exercise.addQuestion(question);
                 }

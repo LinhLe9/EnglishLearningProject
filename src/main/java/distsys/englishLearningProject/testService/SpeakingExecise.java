@@ -11,11 +11,11 @@ import java.util.List;
  *
  * @author DELL
  */
-public class SpeakingExerise {
+public class SpeakingExecise {
     private String topic;
-    List<SpeakingQuestion> questions;
+    List<SpeakingQ> questions;
     
-    public SpeakingExerise(String topic) {
+    public SpeakingExecise(String topic) {
         this.topic = topic;
         this.questions = new ArrayList<>();
     }
@@ -28,15 +28,15 @@ public class SpeakingExerise {
         this.topic = topic;
     }
 
-    public List<SpeakingQuestion> getQuestions() {
+    public List<SpeakingQ> getQuestions() {
         return questions;
     }
 
-    public void setQuestions(List<SpeakingQuestion> questions) {
+    public void setQuestions(List<SpeakingQ> questions) {
         this.questions = questions;
     }
     
-    public void addQuestion(SpeakingQuestion question) {
+    public void addQuestion(SpeakingQ question) {
         questions.add(question);
     }
     
@@ -44,7 +44,7 @@ public class SpeakingExerise {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(topic).append("\n");
-        for (SpeakingQuestion question : questions) {
+        for (SpeakingQ question : questions) {
             sb.append(question.getFullQuestion()).append("\n\n");
         }
         return sb.toString();

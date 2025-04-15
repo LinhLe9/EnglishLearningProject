@@ -23,12 +23,7 @@ public interface ListeningQuestionOrBuilder extends
       getQuestionBytes();
 
   /**
-   * <code>bytes sound = 3;</code>
-   */
-  com.google.protobuf.ByteString getSound();
-
-  /**
-   * <code>int32 maxScore = 4;</code>
+   * <code>int32 maxScore = 3;</code>
    */
   int getMaxScore();
 }

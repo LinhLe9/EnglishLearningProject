@@ -37,5 +37,5 @@ message IeltsScore {
 // Message defining the equivalent scores for other English certificates.
 message ConvertedScore {
     string certificate_name = 1;
-    double equivalent_score = 2;
+    string equivalent_score = 2;
 }

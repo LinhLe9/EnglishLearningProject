@@ -22,7 +22,6 @@ private static final long serialVersionUID = 0L;
   private ListeningQuestion() {
     questionId_ = 0;
     question_ = "";
-    sound_ = com.google.protobuf.ByteString.EMPTY;
     maxScore_ = 0;
   }
 
@@ -61,12 +60,7 @@ private static final long serialVersionUID = 0L;
             question_ = s;
             break;
           }
-          case 26: {
-
-            sound_ = input.readBytes();
-            break;
-          }
-          case 32: {
+          case 24: {
 
             maxScore_ = input.readInt32();
             break;
@@ -146,19 +140,10 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int SOUND_FIELD_NUMBER = 3;
-  private com.google.protobuf.ByteString sound_;
-  /**
-   * <code>bytes sound = 3;</code>
-   */
-  public com.google.protobuf.ByteString getSound() {
-    return sound_;
-  }
-
-  public static final int MAXSCORE_FIELD_NUMBER = 4;
+  public static final int MAXSCORE_FIELD_NUMBER = 3;
   private int maxScore_;
   /**
-   * <code>int32 maxScore = 4;</code>
+   * <code>int32 maxScore = 3;</code>
    */
   public int getMaxScore() {
     return maxScore_;
@@ -184,11 +169,8 @@ private static final long serialVersionUID = 0L;
     if (!getQuestionBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 2, question_);
     }
-    if (!sound_.isEmpty()) {
-      output.writeBytes(3, sound_);
-    }
     if (maxScore_ != 0) {
-      output.writeInt32(4, maxScore_);
+      output.writeInt32(3, maxScore_);
     }
     unknownFields.writeTo(output);
   }
@@ -206,13 +188,9 @@ private static final long serialVersionUID = 0L;
     if (!getQuestionBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, question_);
     }
-    if (!sound_.isEmpty()) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeBytesSize(3, sound_);
-    }
     if (maxScore_ != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(4, maxScore_);
+        .computeInt32Size(3, maxScore_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -234,8 +212,6 @@ private static final long serialVersionUID = 0L;
         == other.getQuestionId());
     result = result && getQuestion()
         .equals(other.getQuestion());
-    result = result && getSound()
-        .equals(other.getSound());
     result = result && (getMaxScore()
         == other.getMaxScore());
     result = result && unknownFields.equals(other.unknownFields);
@@ -253,8 +229,6 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + getQuestionId();
     hash = (37 * hash) + QUESTION_FIELD_NUMBER;
     hash = (53 * hash) + getQuestion().hashCode();
-    hash = (37 * hash) + SOUND_FIELD_NUMBER;
-    hash = (53 * hash) + getSound().hashCode();
     hash = (37 * hash) + MAXSCORE_FIELD_NUMBER;
     hash = (53 * hash) + getMaxScore();
     hash = (29 * hash) + unknownFields.hashCode();
@@ -398,8 +372,6 @@ private static final long serialVersionUID = 0L;
 
       question_ = "";
 
-      sound_ = com.google.protobuf.ByteString.EMPTY;
-
       maxScore_ = 0;
 
       return this;
@@ -430,7 +402,6 @@ private static final long serialVersionUID = 0L;
       generated.grpc.testservice.ListeningQuestion result = new generated.grpc.testservice.ListeningQuestion(this);
       result.questionId_ = questionId_;
       result.question_ = question_;
-      result.sound_ = sound_;
       result.maxScore_ = maxScore_;
       onBuilt();
       return result;
@@ -486,9 +457,6 @@ private static final long serialVersionUID = 0L;
       if (!other.getQuestion().isEmpty()) {
         question_ = other.question_;
         onChanged();
-      }
-      if (other.getSound() != com.google.protobuf.ByteString.EMPTY) {
-        setSound(other.getSound());
       }
       if (other.getMaxScore() != 0) {
         setMaxScore(other.getMaxScore());
@@ -617,44 +585,15 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private com.google.protobuf.ByteString sound_ = com.google.protobuf.ByteString.EMPTY;
-    /**
-     * <code>bytes sound = 3;</code>
-     */
-    public com.google.protobuf.ByteString getSound() {
-      return sound_;
-    }
-    /**
-     * <code>bytes sound = 3;</code>
-     */
-    public Builder setSound(com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
-      sound_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>bytes sound = 3;</code>
-     */
-    public Builder clearSound() {
-      
-      sound_ = getDefaultInstance().getSound();
-      onChanged();
-      return this;
-    }
-
     private int maxScore_ ;
     /**
-     * <code>int32 maxScore = 4;</code>
+     * <code>int32 maxScore = 3;</code>
      */
     public int getMaxScore() {
       return maxScore_;
     }
     /**
-     * <code>int32 maxScore = 4;</code>
+     * <code>int32 maxScore = 3;</code>
      */
     public Builder setMaxScore(int value) {
       
@@ -663,7 +602,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>int32 maxScore = 4;</code>
+     * <code>int32 maxScore = 3;</code>
      */
     public Builder clearMaxScore() {
       

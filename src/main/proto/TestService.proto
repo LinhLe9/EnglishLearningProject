@@ -45,8 +45,13 @@ service TestService {
     message ListeningQuestion {
         int32 questionId = 1;
         string question = 2;
-        bytes sound = 3;
-        int32 maxScore = 4;
+        int32 maxScore = 3;
+    }
+
+    // Message identifying the Listening Sound Path
+    message ListeningSound {
+        int32 soundPathId = 1;
+        string soundpath = 2;
     }
 
     // Listening Response (client answers)
@@ -63,8 +68,9 @@ service TestService {
     // Listening Question or Score
     message ListeningQuestionOrScore {
         oneof message {
-            ListeningQuestion question = 1;
-            AverageScore finalScore = 2;
+            ListeningSound soundpath = 1;
+            ListeningQuestion question = 2;
+            AverageScore finalScore = 3;
         }
     }
 
@@ -103,11 +109,19 @@ service TestService {
         string answer = 2;
     }
 
+    
+    // Message identifying the Listening Passage 
+    message ReadingPassage {
+        string passage_id = 1;
+        string content = 2;
+    }
+
     // Reading Question or Score
     message ReadingQuestionOrScore {
         oneof message {
-            ReadingQuestion question = 1;
-            AverageScore finalScore = 2;
+            ReadingPassage passage  = 1;
+            ReadingQuestion question = 2;
+            AverageScore finalScore = 3;
         }
     }
 

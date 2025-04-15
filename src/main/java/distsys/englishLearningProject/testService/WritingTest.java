@@ -13,13 +13,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**
  *
  * @author DELL
  */
 public class WritingTest {
-    private Map<Integer,List<WritingQuestion>> mapQuestion;
+    private Map<Integer,List<WritingQ>> mapQuestion;
     
     public WritingTest() {
         mapQuestion = new HashMap<>();
@@ -41,7 +42,7 @@ public class WritingTest {
                     int testID = Integer.parseInt(nextLine[0]);
                     int maxScore = Integer.parseInt(nextLine[3]);
                     int questionID = Integer.parseInt(nextLine[1]);
-                    WritingQuestion question = new WritingQuestion(nextLine[2], maxScore,questionID);
+                    WritingQ question = new WritingQ(nextLine[2], maxScore,questionID);
                     mapQuestion.computeIfAbsent(testID, k -> new ArrayList()).add(question);
                 }
             }
@@ -56,31 +57,37 @@ public class WritingTest {
     @Override
     public String toString (){
     StringBuilder sb = new StringBuilder();
-    for (Map.Entry<Integer, List<WritingQuestion>> entry : mapQuestion.entrySet()) {
-            for (WritingQuestion word : entry.getValue()) {
+    for (Map.Entry<Integer, List<WritingQ>> entry : mapQuestion.entrySet()) {
+            for (WritingQ word : entry.getValue()) {
                 sb.append(word.getFullQuestion()).append("\n");
             }
         }
         return sb.toString();
     }
 
-    public Map<Integer, List<WritingQuestion>> getMapQuestion() {
+    public Map<Integer, List<WritingQ>> getMapQuestion() {
         return mapQuestion;
     }
 
-    public void setMapQuestion(Map<Integer, List<WritingQuestion>> mapQuestion) {
+    public void setMapQuestion(Map<Integer, List<WritingQ>> mapQuestion) {
         this.mapQuestion = mapQuestion;
     }
     
     public String getQuestionList(int i ){
-        List<WritingQuestion> questionList = mapQuestion.get(i);
+        List<WritingQ> questionList = mapQuestion.get(i);
         StringBuilder sb = new StringBuilder();
-        for (WritingQuestion q : questionList) {
+        for (WritingQ q : questionList) {
             sb.append(q.getFullQuestion()).append("\n\n");
         }
         return sb.toString();
     }
     
+    public int getRandomTestId() {
+        List<Integer> keys = new ArrayList<>(mapQuestion.keySet());
+        if (keys.isEmpty()) return -1; 
+        Random rand = new Random();
+        return keys.get(rand.nextInt(keys.size()));
+    }
     
     public  static void main (String args[]){
         WritingTest myW = new WritingTest();

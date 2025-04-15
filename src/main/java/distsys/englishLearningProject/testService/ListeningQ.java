@@ -4,37 +4,31 @@
  */
 package distsys.englishLearningProject.testService;
 
+import java.util.List;
+
 /**
  *
  * @author DELL
  */
-public class ReadingQuestion {
-    private String fullQuestion;  
+public class ListeningQ {
+    private String fullSentence;  
     private String correctAnswer;  
     private int maxScore;
     private int questionID;
 
-    public ReadingQuestion(String fullQuestion, String correctAnswer, int maxScore, int questionID) {
-        this.fullQuestion = fullQuestion;
+    public ListeningQ(String fullSentence, String correctAnswer, int maxScore, int questionID) {
+        this.fullSentence = fullSentence;
         this.correctAnswer = correctAnswer;
         this.maxScore = maxScore;
         this.questionID = questionID;
     }
 
-    public String getFullQuestion() {
-        return fullQuestion;
-    }
-
-    public void setFullQuestion(String fullQuestion) {
-        this.fullQuestion = fullQuestion;
+    public String getFullSentence() {
+        return fullSentence;
     }
 
     public String getCorrectAnswer() {
         return correctAnswer;
-    }
-
-    public void setCorrectAnswer(String correctAnswer) {
-        this.correctAnswer = correctAnswer;
     }
 
     public int getMaxScore() {
@@ -52,4 +46,18 @@ public class ReadingQuestion {
     public void setQuestionID(int questionID) {
         this.questionID = questionID;
     }
+
+    public void setFullSentence(String fullSentence) {
+        this.fullSentence = fullSentence;
+    }
+
+    public void setCorrectAnswer(String correctAnswer) {
+        this.correctAnswer = correctAnswer;
+    }
+
+    
+    public boolean checkAnswer(String userAnswers) {
+        return correctAnswer.equalsIgnoreCase(userAnswers); 
+    }
+    
 }

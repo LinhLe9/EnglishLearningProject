@@ -47,8 +47,22 @@ private static final long serialVersionUID = 0L;
             done = true;
             break;
           case 10: {
-            generated.grpc.testservice.ListeningQuestion.Builder subBuilder = null;
+            generated.grpc.testservice.ListeningSound.Builder subBuilder = null;
             if (messageCase_ == 1) {
+              subBuilder = ((generated.grpc.testservice.ListeningSound) message_).toBuilder();
+            }
+            message_ =
+                input.readMessage(generated.grpc.testservice.ListeningSound.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom((generated.grpc.testservice.ListeningSound) message_);
+              message_ = subBuilder.buildPartial();
+            }
+            messageCase_ = 1;
+            break;
+          }
+          case 18: {
+            generated.grpc.testservice.ListeningQuestion.Builder subBuilder = null;
+            if (messageCase_ == 2) {
               subBuilder = ((generated.grpc.testservice.ListeningQuestion) message_).toBuilder();
             }
             message_ =
@@ -57,12 +71,12 @@ private static final long serialVersionUID = 0L;
               subBuilder.mergeFrom((generated.grpc.testservice.ListeningQuestion) message_);
               message_ = subBuilder.buildPartial();
             }
-            messageCase_ = 1;
+            messageCase_ = 2;
             break;
           }
-          case 18: {
+          case 26: {
             generated.grpc.testservice.AverageScore.Builder subBuilder = null;
-            if (messageCase_ == 2) {
+            if (messageCase_ == 3) {
               subBuilder = ((generated.grpc.testservice.AverageScore) message_).toBuilder();
             }
             message_ =
@@ -71,7 +85,7 @@ private static final long serialVersionUID = 0L;
               subBuilder.mergeFrom((generated.grpc.testservice.AverageScore) message_);
               message_ = subBuilder.buildPartial();
             }
-            messageCase_ = 2;
+            messageCase_ = 3;
             break;
           }
           default: {
@@ -110,8 +124,9 @@ private static final long serialVersionUID = 0L;
   private java.lang.Object message_;
   public enum MessageCase
       implements com.google.protobuf.Internal.EnumLite {
-    QUESTION(1),
-    FINALSCORE(2),
+    SOUNDPATH(1),
+    QUESTION(2),
+    FINALSCORE(3),
     MESSAGE_NOT_SET(0);
     private final int value;
     private MessageCase(int value) {
@@ -127,8 +142,9 @@ private static final long serialVersionUID = 0L;
 
     public static MessageCase forNumber(int value) {
       switch (value) {
-        case 1: return QUESTION;
-        case 2: return FINALSCORE;
+        case 1: return SOUNDPATH;
+        case 2: return QUESTION;
+        case 3: return FINALSCORE;
         case 0: return MESSAGE_NOT_SET;
         default: return null;
       }
@@ -144,53 +160,79 @@ private static final long serialVersionUID = 0L;
         messageCase_);
   }
 
-  public static final int QUESTION_FIELD_NUMBER = 1;
+  public static final int SOUNDPATH_FIELD_NUMBER = 1;
   /**
-   * <code>.TestService.ListeningQuestion question = 1;</code>
+   * <code>.TestService.ListeningSound soundpath = 1;</code>
    */
-  public boolean hasQuestion() {
+  public boolean hasSoundpath() {
     return messageCase_ == 1;
   }
   /**
-   * <code>.TestService.ListeningQuestion question = 1;</code>
+   * <code>.TestService.ListeningSound soundpath = 1;</code>
+   */
+  public generated.grpc.testservice.ListeningSound getSoundpath() {
+    if (messageCase_ == 1) {
+       return (generated.grpc.testservice.ListeningSound) message_;
+    }
+    return generated.grpc.testservice.ListeningSound.getDefaultInstance();
+  }
+  /**
+   * <code>.TestService.ListeningSound soundpath = 1;</code>
+   */
+  public generated.grpc.testservice.ListeningSoundOrBuilder getSoundpathOrBuilder() {
+    if (messageCase_ == 1) {
+       return (generated.grpc.testservice.ListeningSound) message_;
+    }
+    return generated.grpc.testservice.ListeningSound.getDefaultInstance();
+  }
+
+  public static final int QUESTION_FIELD_NUMBER = 2;
+  /**
+   * <code>.TestService.ListeningQuestion question = 2;</code>
+   */
+  public boolean hasQuestion() {
+    return messageCase_ == 2;
+  }
+  /**
+   * <code>.TestService.ListeningQuestion question = 2;</code>
    */
   public generated.grpc.testservice.ListeningQuestion getQuestion() {
-    if (messageCase_ == 1) {
+    if (messageCase_ == 2) {
        return (generated.grpc.testservice.ListeningQuestion) message_;
     }
     return generated.grpc.testservice.ListeningQuestion.getDefaultInstance();
   }
   /**
-   * <code>.TestService.ListeningQuestion question = 1;</code>
+   * <code>.TestService.ListeningQuestion question = 2;</code>
    */
   public generated.grpc.testservice.ListeningQuestionOrBuilder getQuestionOrBuilder() {
-    if (messageCase_ == 1) {
+    if (messageCase_ == 2) {
        return (generated.grpc.testservice.ListeningQuestion) message_;
     }
     return generated.grpc.testservice.ListeningQuestion.getDefaultInstance();
   }
 
-  public static final int FINALSCORE_FIELD_NUMBER = 2;
+  public static final int FINALSCORE_FIELD_NUMBER = 3;
   /**
-   * <code>.TestService.AverageScore finalScore = 2;</code>
+   * <code>.TestService.AverageScore finalScore = 3;</code>
    */
   public boolean hasFinalScore() {
-    return messageCase_ == 2;
+    return messageCase_ == 3;
   }
   /**
-   * <code>.TestService.AverageScore finalScore = 2;</code>
+   * <code>.TestService.AverageScore finalScore = 3;</code>
    */
   public generated.grpc.testservice.AverageScore getFinalScore() {
-    if (messageCase_ == 2) {
+    if (messageCase_ == 3) {
        return (generated.grpc.testservice.AverageScore) message_;
     }
     return generated.grpc.testservice.AverageScore.getDefaultInstance();
   }
   /**
-   * <code>.TestService.AverageScore finalScore = 2;</code>
+   * <code>.TestService.AverageScore finalScore = 3;</code>
    */
   public generated.grpc.testservice.AverageScoreOrBuilder getFinalScoreOrBuilder() {
-    if (messageCase_ == 2) {
+    if (messageCase_ == 3) {
        return (generated.grpc.testservice.AverageScore) message_;
     }
     return generated.grpc.testservice.AverageScore.getDefaultInstance();
@@ -211,10 +253,13 @@ private static final long serialVersionUID = 0L;
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
     if (messageCase_ == 1) {
-      output.writeMessage(1, (generated.grpc.testservice.ListeningQuestion) message_);
+      output.writeMessage(1, (generated.grpc.testservice.ListeningSound) message_);
     }
     if (messageCase_ == 2) {
-      output.writeMessage(2, (generated.grpc.testservice.AverageScore) message_);
+      output.writeMessage(2, (generated.grpc.testservice.ListeningQuestion) message_);
+    }
+    if (messageCase_ == 3) {
+      output.writeMessage(3, (generated.grpc.testservice.AverageScore) message_);
     }
     unknownFields.writeTo(output);
   }
@@ -227,11 +272,15 @@ private static final long serialVersionUID = 0L;
     size = 0;
     if (messageCase_ == 1) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(1, (generated.grpc.testservice.ListeningQuestion) message_);
+        .computeMessageSize(1, (generated.grpc.testservice.ListeningSound) message_);
     }
     if (messageCase_ == 2) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(2, (generated.grpc.testservice.AverageScore) message_);
+        .computeMessageSize(2, (generated.grpc.testservice.ListeningQuestion) message_);
+    }
+    if (messageCase_ == 3) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(3, (generated.grpc.testservice.AverageScore) message_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -254,10 +303,14 @@ private static final long serialVersionUID = 0L;
     if (!result) return false;
     switch (messageCase_) {
       case 1:
+        result = result && getSoundpath()
+            .equals(other.getSoundpath());
+        break;
+      case 2:
         result = result && getQuestion()
             .equals(other.getQuestion());
         break;
-      case 2:
+      case 3:
         result = result && getFinalScore()
             .equals(other.getFinalScore());
         break;
@@ -277,10 +330,14 @@ private static final long serialVersionUID = 0L;
     hash = (19 * hash) + getDescriptor().hashCode();
     switch (messageCase_) {
       case 1:
+        hash = (37 * hash) + SOUNDPATH_FIELD_NUMBER;
+        hash = (53 * hash) + getSoundpath().hashCode();
+        break;
+      case 2:
         hash = (37 * hash) + QUESTION_FIELD_NUMBER;
         hash = (53 * hash) + getQuestion().hashCode();
         break;
-      case 2:
+      case 3:
         hash = (37 * hash) + FINALSCORE_FIELD_NUMBER;
         hash = (53 * hash) + getFinalScore().hashCode();
         break;
@@ -453,13 +510,20 @@ private static final long serialVersionUID = 0L;
     public generated.grpc.testservice.ListeningQuestionOrScore buildPartial() {
       generated.grpc.testservice.ListeningQuestionOrScore result = new generated.grpc.testservice.ListeningQuestionOrScore(this);
       if (messageCase_ == 1) {
+        if (soundpathBuilder_ == null) {
+          result.message_ = message_;
+        } else {
+          result.message_ = soundpathBuilder_.build();
+        }
+      }
+      if (messageCase_ == 2) {
         if (questionBuilder_ == null) {
           result.message_ = message_;
         } else {
           result.message_ = questionBuilder_.build();
         }
       }
-      if (messageCase_ == 2) {
+      if (messageCase_ == 3) {
         if (finalScoreBuilder_ == null) {
           result.message_ = message_;
         } else {
@@ -516,6 +580,10 @@ private static final long serialVersionUID = 0L;
     public Builder mergeFrom(generated.grpc.testservice.ListeningQuestionOrScore other) {
       if (other == generated.grpc.testservice.ListeningQuestionOrScore.getDefaultInstance()) return this;
       switch (other.getMessageCase()) {
+        case SOUNDPATH: {
+          mergeSoundpath(other.getSoundpath());
+          break;
+        }
         case QUESTION: {
           mergeQuestion(other.getQuestion());
           break;
@@ -573,31 +641,167 @@ private static final long serialVersionUID = 0L;
 
 
     private com.google.protobuf.SingleFieldBuilderV3<
-        generated.grpc.testservice.ListeningQuestion, generated.grpc.testservice.ListeningQuestion.Builder, generated.grpc.testservice.ListeningQuestionOrBuilder> questionBuilder_;
+        generated.grpc.testservice.ListeningSound, generated.grpc.testservice.ListeningSound.Builder, generated.grpc.testservice.ListeningSoundOrBuilder> soundpathBuilder_;
     /**
-     * <code>.TestService.ListeningQuestion question = 1;</code>
+     * <code>.TestService.ListeningSound soundpath = 1;</code>
      */
-    public boolean hasQuestion() {
+    public boolean hasSoundpath() {
       return messageCase_ == 1;
     }
     /**
-     * <code>.TestService.ListeningQuestion question = 1;</code>
+     * <code>.TestService.ListeningSound soundpath = 1;</code>
+     */
+    public generated.grpc.testservice.ListeningSound getSoundpath() {
+      if (soundpathBuilder_ == null) {
+        if (messageCase_ == 1) {
+          return (generated.grpc.testservice.ListeningSound) message_;
+        }
+        return generated.grpc.testservice.ListeningSound.getDefaultInstance();
+      } else {
+        if (messageCase_ == 1) {
+          return soundpathBuilder_.getMessage();
+        }
+        return generated.grpc.testservice.ListeningSound.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.TestService.ListeningSound soundpath = 1;</code>
+     */
+    public Builder setSoundpath(generated.grpc.testservice.ListeningSound value) {
+      if (soundpathBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        message_ = value;
+        onChanged();
+      } else {
+        soundpathBuilder_.setMessage(value);
+      }
+      messageCase_ = 1;
+      return this;
+    }
+    /**
+     * <code>.TestService.ListeningSound soundpath = 1;</code>
+     */
+    public Builder setSoundpath(
+        generated.grpc.testservice.ListeningSound.Builder builderForValue) {
+      if (soundpathBuilder_ == null) {
+        message_ = builderForValue.build();
+        onChanged();
+      } else {
+        soundpathBuilder_.setMessage(builderForValue.build());
+      }
+      messageCase_ = 1;
+      return this;
+    }
+    /**
+     * <code>.TestService.ListeningSound soundpath = 1;</code>
+     */
+    public Builder mergeSoundpath(generated.grpc.testservice.ListeningSound value) {
+      if (soundpathBuilder_ == null) {
+        if (messageCase_ == 1 &&
+            message_ != generated.grpc.testservice.ListeningSound.getDefaultInstance()) {
+          message_ = generated.grpc.testservice.ListeningSound.newBuilder((generated.grpc.testservice.ListeningSound) message_)
+              .mergeFrom(value).buildPartial();
+        } else {
+          message_ = value;
+        }
+        onChanged();
+      } else {
+        if (messageCase_ == 1) {
+          soundpathBuilder_.mergeFrom(value);
+        }
+        soundpathBuilder_.setMessage(value);
+      }
+      messageCase_ = 1;
+      return this;
+    }
+    /**
+     * <code>.TestService.ListeningSound soundpath = 1;</code>
+     */
+    public Builder clearSoundpath() {
+      if (soundpathBuilder_ == null) {
+        if (messageCase_ == 1) {
+          messageCase_ = 0;
+          message_ = null;
+          onChanged();
+        }
+      } else {
+        if (messageCase_ == 1) {
+          messageCase_ = 0;
+          message_ = null;
+        }
+        soundpathBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>.TestService.ListeningSound soundpath = 1;</code>
+     */
+    public generated.grpc.testservice.ListeningSound.Builder getSoundpathBuilder() {
+      return getSoundpathFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.TestService.ListeningSound soundpath = 1;</code>
+     */
+    public generated.grpc.testservice.ListeningSoundOrBuilder getSoundpathOrBuilder() {
+      if ((messageCase_ == 1) && (soundpathBuilder_ != null)) {
+        return soundpathBuilder_.getMessageOrBuilder();
+      } else {
+        if (messageCase_ == 1) {
+          return (generated.grpc.testservice.ListeningSound) message_;
+        }
+        return generated.grpc.testservice.ListeningSound.getDefaultInstance();
+      }
+    }
+    /**
+     * <code>.TestService.ListeningSound soundpath = 1;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        generated.grpc.testservice.ListeningSound, generated.grpc.testservice.ListeningSound.Builder, generated.grpc.testservice.ListeningSoundOrBuilder> 
+        getSoundpathFieldBuilder() {
+      if (soundpathBuilder_ == null) {
+        if (!(messageCase_ == 1)) {
+          message_ = generated.grpc.testservice.ListeningSound.getDefaultInstance();
+        }
+        soundpathBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            generated.grpc.testservice.ListeningSound, generated.grpc.testservice.ListeningSound.Builder, generated.grpc.testservice.ListeningSoundOrBuilder>(
+                (generated.grpc.testservice.ListeningSound) message_,
+                getParentForChildren(),
+                isClean());
+        message_ = null;
+      }
+      messageCase_ = 1;
+      onChanged();;
+      return soundpathBuilder_;
+    }
+
+    private com.google.protobuf.SingleFieldBuilderV3<
+        generated.grpc.testservice.ListeningQuestion, generated.grpc.testservice.ListeningQuestion.Builder, generated.grpc.testservice.ListeningQuestionOrBuilder> questionBuilder_;
+    /**
+     * <code>.TestService.ListeningQuestion question = 2;</code>
+     */
+    public boolean hasQuestion() {
+      return messageCase_ == 2;
+    }
+    /**
+     * <code>.TestService.ListeningQuestion question = 2;</code>
      */
     public generated.grpc.testservice.ListeningQuestion getQuestion() {
       if (questionBuilder_ == null) {
-        if (messageCase_ == 1) {
+        if (messageCase_ == 2) {
           return (generated.grpc.testservice.ListeningQuestion) message_;
         }
         return generated.grpc.testservice.ListeningQuestion.getDefaultInstance();
       } else {
-        if (messageCase_ == 1) {
+        if (messageCase_ == 2) {
           return questionBuilder_.getMessage();
         }
         return generated.grpc.testservice.ListeningQuestion.getDefaultInstance();
       }
     }
     /**
-     * <code>.TestService.ListeningQuestion question = 1;</code>
+     * <code>.TestService.ListeningQuestion question = 2;</code>
      */
     public Builder setQuestion(generated.grpc.testservice.ListeningQuestion value) {
       if (questionBuilder_ == null) {
@@ -609,11 +813,11 @@ private static final long serialVersionUID = 0L;
       } else {
         questionBuilder_.setMessage(value);
       }
-      messageCase_ = 1;
+      messageCase_ = 2;
       return this;
     }
     /**
-     * <code>.TestService.ListeningQuestion question = 1;</code>
+     * <code>.TestService.ListeningQuestion question = 2;</code>
      */
     public Builder setQuestion(
         generated.grpc.testservice.ListeningQuestion.Builder builderForValue) {
@@ -623,15 +827,15 @@ private static final long serialVersionUID = 0L;
       } else {
         questionBuilder_.setMessage(builderForValue.build());
       }
-      messageCase_ = 1;
+      messageCase_ = 2;
       return this;
     }
     /**
-     * <code>.TestService.ListeningQuestion question = 1;</code>
+     * <code>.TestService.ListeningQuestion question = 2;</code>
      */
     public Builder mergeQuestion(generated.grpc.testservice.ListeningQuestion value) {
       if (questionBuilder_ == null) {
-        if (messageCase_ == 1 &&
+        if (messageCase_ == 2 &&
             message_ != generated.grpc.testservice.ListeningQuestion.getDefaultInstance()) {
           message_ = generated.grpc.testservice.ListeningQuestion.newBuilder((generated.grpc.testservice.ListeningQuestion) message_)
               .mergeFrom(value).buildPartial();
@@ -640,26 +844,26 @@ private static final long serialVersionUID = 0L;
         }
         onChanged();
       } else {
-        if (messageCase_ == 1) {
+        if (messageCase_ == 2) {
           questionBuilder_.mergeFrom(value);
         }
         questionBuilder_.setMessage(value);
       }
-      messageCase_ = 1;
+      messageCase_ = 2;
       return this;
     }
     /**
-     * <code>.TestService.ListeningQuestion question = 1;</code>
+     * <code>.TestService.ListeningQuestion question = 2;</code>
      */
     public Builder clearQuestion() {
       if (questionBuilder_ == null) {
-        if (messageCase_ == 1) {
+        if (messageCase_ == 2) {
           messageCase_ = 0;
           message_ = null;
           onChanged();
         }
       } else {
-        if (messageCase_ == 1) {
+        if (messageCase_ == 2) {
           messageCase_ = 0;
           message_ = null;
         }
@@ -668,32 +872,32 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.TestService.ListeningQuestion question = 1;</code>
+     * <code>.TestService.ListeningQuestion question = 2;</code>
      */
     public generated.grpc.testservice.ListeningQuestion.Builder getQuestionBuilder() {
       return getQuestionFieldBuilder().getBuilder();
     }
     /**
-     * <code>.TestService.ListeningQuestion question = 1;</code>
+     * <code>.TestService.ListeningQuestion question = 2;</code>
      */
     public generated.grpc.testservice.ListeningQuestionOrBuilder getQuestionOrBuilder() {
-      if ((messageCase_ == 1) && (questionBuilder_ != null)) {
+      if ((messageCase_ == 2) && (questionBuilder_ != null)) {
         return questionBuilder_.getMessageOrBuilder();
       } else {
-        if (messageCase_ == 1) {
+        if (messageCase_ == 2) {
           return (generated.grpc.testservice.ListeningQuestion) message_;
         }
         return generated.grpc.testservice.ListeningQuestion.getDefaultInstance();
       }
     }
     /**
-     * <code>.TestService.ListeningQuestion question = 1;</code>
+     * <code>.TestService.ListeningQuestion question = 2;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         generated.grpc.testservice.ListeningQuestion, generated.grpc.testservice.ListeningQuestion.Builder, generated.grpc.testservice.ListeningQuestionOrBuilder> 
         getQuestionFieldBuilder() {
       if (questionBuilder_ == null) {
-        if (!(messageCase_ == 1)) {
+        if (!(messageCase_ == 2)) {
           message_ = generated.grpc.testservice.ListeningQuestion.getDefaultInstance();
         }
         questionBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
@@ -703,7 +907,7 @@ private static final long serialVersionUID = 0L;
                 isClean());
         message_ = null;
       }
-      messageCase_ = 1;
+      messageCase_ = 2;
       onChanged();;
       return questionBuilder_;
     }
@@ -711,29 +915,29 @@ private static final long serialVersionUID = 0L;
     private com.google.protobuf.SingleFieldBuilderV3<
         generated.grpc.testservice.AverageScore, generated.grpc.testservice.AverageScore.Builder, generated.grpc.testservice.AverageScoreOrBuilder> finalScoreBuilder_;
     /**
-     * <code>.TestService.AverageScore finalScore = 2;</code>
+     * <code>.TestService.AverageScore finalScore = 3;</code>
      */
     public boolean hasFinalScore() {
-      return messageCase_ == 2;
+      return messageCase_ == 3;
     }
     /**
-     * <code>.TestService.AverageScore finalScore = 2;</code>
+     * <code>.TestService.AverageScore finalScore = 3;</code>
      */
     public generated.grpc.testservice.AverageScore getFinalScore() {
       if (finalScoreBuilder_ == null) {
-        if (messageCase_ == 2) {
+        if (messageCase_ == 3) {
           return (generated.grpc.testservice.AverageScore) message_;
         }
         return generated.grpc.testservice.AverageScore.getDefaultInstance();
       } else {
-        if (messageCase_ == 2) {
+        if (messageCase_ == 3) {
           return finalScoreBuilder_.getMessage();
         }
         return generated.grpc.testservice.AverageScore.getDefaultInstance();
       }
     }
     /**
-     * <code>.TestService.AverageScore finalScore = 2;</code>
+     * <code>.TestService.AverageScore finalScore = 3;</code>
      */
     public Builder setFinalScore(generated.grpc.testservice.AverageScore value) {
       if (finalScoreBuilder_ == null) {
@@ -745,11 +949,11 @@ private static final long serialVersionUID = 0L;
       } else {
         finalScoreBuilder_.setMessage(value);
       }
-      messageCase_ = 2;
+      messageCase_ = 3;
       return this;
     }
     /**
-     * <code>.TestService.AverageScore finalScore = 2;</code>
+     * <code>.TestService.AverageScore finalScore = 3;</code>
      */
     public Builder setFinalScore(
         generated.grpc.testservice.AverageScore.Builder builderForValue) {
@@ -759,15 +963,15 @@ private static final long serialVersionUID = 0L;
       } else {
         finalScoreBuilder_.setMessage(builderForValue.build());
       }
-      messageCase_ = 2;
+      messageCase_ = 3;
       return this;
     }
     /**
-     * <code>.TestService.AverageScore finalScore = 2;</code>
+     * <code>.TestService.AverageScore finalScore = 3;</code>
      */
     public Builder mergeFinalScore(generated.grpc.testservice.AverageScore value) {
       if (finalScoreBuilder_ == null) {
-        if (messageCase_ == 2 &&
+        if (messageCase_ == 3 &&
             message_ != generated.grpc.testservice.AverageScore.getDefaultInstance()) {
           message_ = generated.grpc.testservice.AverageScore.newBuilder((generated.grpc.testservice.AverageScore) message_)
               .mergeFrom(value).buildPartial();
@@ -776,26 +980,26 @@ private static final long serialVersionUID = 0L;
         }
         onChanged();
       } else {
-        if (messageCase_ == 2) {
+        if (messageCase_ == 3) {
           finalScoreBuilder_.mergeFrom(value);
         }
         finalScoreBuilder_.setMessage(value);
       }
-      messageCase_ = 2;
+      messageCase_ = 3;
       return this;
     }
     /**
-     * <code>.TestService.AverageScore finalScore = 2;</code>
+     * <code>.TestService.AverageScore finalScore = 3;</code>
      */
     public Builder clearFinalScore() {
       if (finalScoreBuilder_ == null) {
-        if (messageCase_ == 2) {
+        if (messageCase_ == 3) {
           messageCase_ = 0;
           message_ = null;
           onChanged();
         }
       } else {
-        if (messageCase_ == 2) {
+        if (messageCase_ == 3) {
           messageCase_ = 0;
           message_ = null;
         }
@@ -804,32 +1008,32 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.TestService.AverageScore finalScore = 2;</code>
+     * <code>.TestService.AverageScore finalScore = 3;</code>
      */
     public generated.grpc.testservice.AverageScore.Builder getFinalScoreBuilder() {
       return getFinalScoreFieldBuilder().getBuilder();
     }
     /**
-     * <code>.TestService.AverageScore finalScore = 2;</code>
+     * <code>.TestService.AverageScore finalScore = 3;</code>
      */
     public generated.grpc.testservice.AverageScoreOrBuilder getFinalScoreOrBuilder() {
-      if ((messageCase_ == 2) && (finalScoreBuilder_ != null)) {
+      if ((messageCase_ == 3) && (finalScoreBuilder_ != null)) {
         return finalScoreBuilder_.getMessageOrBuilder();
       } else {
-        if (messageCase_ == 2) {
+        if (messageCase_ == 3) {
           return (generated.grpc.testservice.AverageScore) message_;
         }
         return generated.grpc.testservice.AverageScore.getDefaultInstance();
       }
     }
     /**
-     * <code>.TestService.AverageScore finalScore = 2;</code>
+     * <code>.TestService.AverageScore finalScore = 3;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         generated.grpc.testservice.AverageScore, generated.grpc.testservice.AverageScore.Builder, generated.grpc.testservice.AverageScoreOrBuilder> 
         getFinalScoreFieldBuilder() {
       if (finalScoreBuilder_ == null) {
-        if (!(messageCase_ == 2)) {
+        if (!(messageCase_ == 3)) {
           message_ = generated.grpc.testservice.AverageScore.getDefaultInstance();
         }
         finalScoreBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
@@ -839,7 +1043,7 @@ private static final long serialVersionUID = 0L;
                 isClean());
         message_ = null;
       }
-      messageCase_ = 2;
+      messageCase_ = 3;
       onChanged();;
       return finalScoreBuilder_;
     }

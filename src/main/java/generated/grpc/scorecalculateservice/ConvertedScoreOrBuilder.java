@@ -18,7 +18,12 @@ public interface ConvertedScoreOrBuilder extends
       getCertificateNameBytes();
 
   /**
-   * <code>double equivalent_score = 2;</code>
+   * <code>string equivalent_score = 2;</code>
    */
-  double getEquivalentScore();
+  java.lang.String getEquivalentScore();
+  /**
+   * <code>string equivalent_score = 2;</code>
+   */
+  com.google.protobuf.ByteString
+      getEquivalentScoreBytes();
 }

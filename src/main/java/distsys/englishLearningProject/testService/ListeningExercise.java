@@ -12,7 +12,7 @@ import java.util.*;
  */
 public class ListeningExercise {
     private String audioPath;
-    List<ListeningQuestion> questions;
+    List<ListeningQ> questions;
 
     public ListeningExercise(String audioPath) {
         this.audioPath = audioPath;
@@ -27,15 +27,15 @@ public class ListeningExercise {
         this.audioPath = audioPath;
     }
 
-    public List<ListeningQuestion> getQuestions() {
+    public List<ListeningQ> getQuestions() {
         return questions;
     }
 
-    public void setQuestions(List<ListeningQuestion> questions) {
+    public void setQuestions(List<ListeningQ> questions) {
         this.questions = questions;
     }
     
-    public void addQuestion(ListeningQuestion question) {
+    public void addQuestion(ListeningQ question) {
         questions.add(question);
     }
     
@@ -43,7 +43,7 @@ public class ListeningExercise {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(audioPath).append("\n");
-        for (ListeningQuestion question : questions) {
+        for (ListeningQ question : questions) {
             sb.append(question.getFullSentence()).append("\n\n");
         }
         return sb.toString();

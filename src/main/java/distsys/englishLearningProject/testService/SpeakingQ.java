@@ -8,12 +8,15 @@ package distsys.englishLearningProject.testService;
  *
  * @author DELL
  */
-public class WritingQuestion {
-    private String fullQuestion;  
+public class SpeakingQ {
+    private String fullQuestion;   
     private int maxScore;
     private int questionID;
 
-    public WritingQuestion(String fullQuestion, int maxScore, int questionID) {
+    public SpeakingQ() {
+    }
+
+    public SpeakingQ(String fullQuestion, int maxScore, int questionID) {
         this.fullQuestion = fullQuestion;
         this.maxScore = maxScore;
         this.questionID = questionID;
@@ -42,4 +45,6 @@ public class WritingQuestion {
     public void setQuestionID(int questionID) {
         this.questionID = questionID;
     }
+    
+    
 }

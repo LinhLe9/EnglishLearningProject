@@ -2,13 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package distsys.englishLearningProject.newWordsService;
+package distsys.englishLearningProject;
 
+import distsys.englishLearningProject.newWordsService.NewWordsClient;
 import generated.grpc.newwordsservice.WordDetail;
 import generated.grpc.newwordsservice.WordList;
-import java.awt.Font;
+import java.awt.*;
 import java.util.Iterator;
 import java.util.List;
+import javax.swing.*;
 
 /**
  *
@@ -22,14 +24,20 @@ public class NewWordsGUI extends javax.swing.JFrame {
      */
     public NewWordsGUI() {
         initComponents();
-        WordResultArea.setLineWrap(true);  
-        WordResultArea.setWrapStyleWord(true); 
-        WordResultArea.setEditable(false);      
+        WelcomeLabel.setText("Welcome to our English Learning centre");
+        WelcomeLabel.setFont(new Font("Segoe UI", Font.BOLD, 24)); // Font, kiểu chữ, kích thước
+        WelcomeLabel.setHorizontalAlignment(SwingConstants.CENTER); // Căn giữa theo chiều ngang
         // create a new instance of NewWordsClient
         newWordClient = new NewWordsClient();
         
-        // update the available topic can be searched
-        updateMenu();
+        WordEnter.setVisible(false);
+        WordSearch.setVisible(false);
+        SearchWordButton.setVisible(false);
+        WordResultArea.setVisible(false);
+        TopicComboBox.setVisible(false);
+        TopicSearch.setVisible(false);
+        resultPane.setVisible(false);
+        jScrollPane1.setVisible(false);
     }
 
     /**
@@ -42,6 +50,8 @@ public class NewWordsGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jTextField1 = new javax.swing.JTextField();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         resultPane = new javax.swing.JScrollPane();
         TopicResultArea = new javax.swing.JTextArea();
         TopicComboBox = new javax.swing.JComboBox<>();
@@ -51,8 +61,22 @@ public class NewWordsGUI extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         WordResultArea = new javax.swing.JTextArea();
         SearchWordButton = new javax.swing.JButton();
+        WelcomeLabel = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        NewWords = new javax.swing.JMenu();
+        searchByTopic = new javax.swing.JMenuItem();
+        searchByWord = new javax.swing.JMenuItem();
+        Test = new javax.swing.JMenu();
+        readingTest = new javax.swing.JMenuItem();
+        writingTest = new javax.swing.JMenuItem();
+        speakingTest = new javax.swing.JMenuItem();
+        listeningTest = new javax.swing.JMenuItem();
 
         jTextField1.setText("jTextField1");
+
+        jMenuItem2.setText("jMenuItem2");
+
+        jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -89,6 +113,41 @@ public class NewWordsGUI extends javax.swing.JFrame {
             }
         });
 
+        WelcomeLabel.setText("jLabel1");
+
+        NewWords.setText("New Words");
+
+        searchByTopic.setText("Search by Topic");
+        searchByTopic.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchByTopicActionPerformed(evt);
+            }
+        });
+        NewWords.add(searchByTopic);
+
+        searchByWord.setText("Search by Word");
+        NewWords.add(searchByWord);
+
+        jMenuBar1.add(NewWords);
+
+        Test.setText("Test");
+
+        readingTest.setText("Reading");
+        Test.add(readingTest);
+
+        writingTest.setText("Writing");
+        Test.add(writingTest);
+
+        speakingTest.setText("Speaking");
+        Test.add(speakingTest);
+
+        listeningTest.setText("Listening");
+        Test.add(listeningTest);
+
+        jMenuBar1.add(Test);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -102,10 +161,14 @@ public class NewWordsGUI extends javax.swing.JFrame {
                         .addComponent(SearchWordButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addComponent(TopicComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(TopicSearch))
-                .addGap(11, 11, 11)
+                .addGap(106, 106, 106)
+                .addComponent(WelcomeLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(resultPane)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(resultPane, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -125,10 +188,15 @@ public class NewWordsGUI extends javax.swing.JFrame {
                         .addComponent(SearchWordButton)
                         .addGap(19, 19, 19))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(resultPane, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(resultPane, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(117, 117, 117)
+                                .addComponent(WelcomeLabel)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
                         .addGap(14, 14, 14))))
         );
 
@@ -157,6 +225,7 @@ public class NewWordsGUI extends javax.swing.JFrame {
 
         // selected topic to get the topic chosen by user
         String selectedTopic = (String) TopicComboBox.getSelectedItem();
+        System.out.println("Selected topic: " + selectedTopic);
         if (selectedTopic == null || selectedTopic.isEmpty()) {
             System.err.println("Error: Selected Topic is NULL or EMPTY!");
         return;
@@ -197,6 +266,42 @@ public class NewWordsGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_SearchWordButtonActionPerformed
 
+    private void searchByTopicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchByTopicActionPerformed
+        // TODO add your handling code here:
+        showSearchByTopic();
+    }//GEN-LAST:event_searchByTopicActionPerformed
+
+    private void showSearchByTopic() {
+       // Ẩn tất cả components trước
+    Component[] components = getContentPane().getComponents();
+    for (Component comp : components) {
+        comp.setVisible(false);
+    }
+    
+    // Chỉ hiển thị những components cần thiết
+    TopicSearch.setVisible(true);
+    TopicComboBox.setVisible(true);
+    resultPane.setVisible(true);
+    
+    // Đặt kích thước ưu tiên cho resultPane
+    resultPane.setPreferredSize(new Dimension(
+        (int)(getWidth() * 0.7), // 70% chiều rộng
+        getHeight() - 50 // Chiều cao trừ đi phần combo box
+    ));
+    
+    // Sắp xếp lại vị trí các component
+    TopicSearch.setBounds(10, 10, 50, 25);
+    TopicComboBox.setBounds(70, 10, 150, 25);
+    resultPane.setBounds(230, 10, (int)(getWidth() * 0.7), getHeight() - 50);
+    
+
+    // Cập nhật layout
+    revalidate();
+    repaint();
+    
+    // Gọi lại hàm để làm mới danh sách chủ đề
+    updateMenu();
+}
     // updateMenu method to query all the available topic
     private void updateMenu() {
         List<String> item = newWordClient.getTopicRequest();
@@ -214,6 +319,29 @@ public class NewWordsGUI extends javax.swing.JFrame {
 
     }
     }
+    
+    private JPanel createWelcomePanel() {
+    JPanel panel = new JPanel(new BorderLayout());
+    JLabel label = new JLabel("Welcome to our English Learning Centre", SwingConstants.CENTER);
+    label.setFont(new Font("Segoe UI", Font.BOLD, 24));
+    panel.add(label, BorderLayout.CENTER);
+    return panel;
+}
+
+private JPanel createTopicSearchPanel() {
+    JPanel panel = new JPanel(new BorderLayout());
+    
+    JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    controlPanel.add(TopicSearch);
+    controlPanel.add(TopicComboBox);
+    
+    panel.add(controlPanel, BorderLayout.NORTH);
+    panel.add(resultPane, BorderLayout.CENTER);
+    
+    return panel;
+}
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -250,15 +378,27 @@ public class NewWordsGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu NewWords;
     private javax.swing.JButton SearchWordButton;
+    private javax.swing.JMenu Test;
     private javax.swing.JComboBox<String> TopicComboBox;
     private javax.swing.JTextArea TopicResultArea;
     private javax.swing.JLabel TopicSearch;
+    private javax.swing.JLabel WelcomeLabel;
     private javax.swing.JTextField WordEnter;
     private javax.swing.JTextArea WordResultArea;
     private javax.swing.JLabel WordSearch;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JMenuItem listeningTest;
+    private javax.swing.JMenuItem readingTest;
     private javax.swing.JScrollPane resultPane;
+    private javax.swing.JMenuItem searchByTopic;
+    private javax.swing.JMenuItem searchByWord;
+    private javax.swing.JMenuItem speakingTest;
+    private javax.swing.JMenuItem writingTest;
     // End of variables declaration//GEN-END:variables
 }

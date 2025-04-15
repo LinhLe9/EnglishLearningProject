@@ -9,15 +9,18 @@ import com.opencsv.exceptions.CsvValidationException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**
  *
  * @author DELL
  */
 public class SpeakingTest {
-    private Map<Integer,SpeakingExerise> mapTest;
+    private Map<Integer,SpeakingExecise> mapTest;
     
     public SpeakingTest() {
         mapTest = new HashMap<>();
@@ -40,8 +43,8 @@ public class SpeakingTest {
                     String topic = nextLine[1];
                     int maxScore = Integer.parseInt(nextLine[4]);
                     int questionID = Integer.parseInt(nextLine[2]);
-                    SpeakingQuestion question = new SpeakingQuestion(nextLine[3], maxScore, questionID);
-                    SpeakingExerise exercise = mapTest.computeIfAbsent(topicID, k -> new SpeakingExerise(topic));
+                    SpeakingQ question = new SpeakingQ(nextLine[3], maxScore, questionID);
+                    SpeakingExecise exercise = mapTest.computeIfAbsent(topicID, k -> new SpeakingExecise(topic));
                     exercise.addQuestion(question);
                 }
             }
@@ -53,12 +56,19 @@ public class SpeakingTest {
         }
     }
 
-    public Map<Integer, SpeakingExerise> getMapTest() {
+    public Map<Integer, SpeakingExecise> getMapTest() {
         return mapTest;
     }
 
-    public void setMapTest(Map<Integer, SpeakingExerise> mapTest) {
+    public void setMapTest(Map<Integer, SpeakingExecise> mapTest) {
         this.mapTest = mapTest;
+    }
+    
+    public int getRandomTestId() {
+        List<Integer> keys = new ArrayList<>(mapTest.keySet());
+        if (keys.isEmpty()) return -1; 
+        Random rand = new Random();
+        return keys.get(rand.nextInt(keys.size()));
     }
     
     public static void main(String[] args) {

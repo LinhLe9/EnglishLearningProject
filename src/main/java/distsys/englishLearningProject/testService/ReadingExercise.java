@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public class ReadingExercise {
     private String passage;
-    private List<ReadingQuestion> questions;
+    private List<ReadingQ> questions;
 
     public ReadingExercise(String passage) {
         this.passage = passage;
@@ -30,15 +30,15 @@ public class ReadingExercise {
         this.passage = passage;
     }
 
-    public List<ReadingQuestion> getQuestions() {
+    public List<ReadingQ> getQuestions() {
         return questions;
     }
 
-    public void setQuestions(List<ReadingQuestion> questions) {
+    public void setQuestions(List<ReadingQ> questions) {
         this.questions = questions;
     }
 
-    public void addQuestion(ReadingQuestion question) {
+    public void addQuestion(ReadingQ question) {
         questions.add(question);
     }
 
@@ -46,7 +46,7 @@ public class ReadingExercise {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(passage).append("\n");
-        for (ReadingQuestion question : questions) {
+        for (ReadingQ question : questions) {
             sb.append(question.getFullQuestion()).append("\n\n");
         }
         return sb.toString();

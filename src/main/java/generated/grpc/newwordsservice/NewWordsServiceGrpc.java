@@ -153,6 +153,7 @@ public final class NewWordsServiceGrpc {
     /**
      * <pre>
      * Server returns available topic from the database
+     * server streaming
      * </pre>
      */
     public void topicRequest(com.google.protobuf.Empty request,
@@ -230,6 +231,7 @@ public final class NewWordsServiceGrpc {
     /**
      * <pre>
      * Server returns available topic from the database
+     * server streaming
      * </pre>
      */
     public void topicRequest(com.google.protobuf.Empty request,
@@ -284,6 +286,7 @@ public final class NewWordsServiceGrpc {
     /**
      * <pre>
      * Server returns available topic from the database
+     * server streaming
      * </pre>
      */
     public java.util.Iterator<generated.grpc.newwordsservice.Topic> topicRequest(

@@ -8,28 +8,41 @@ public interface ReadingQuestionOrScoreOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>.TestService.ReadingQuestion question = 1;</code>
+   * <code>.TestService.ReadingPassage passage = 1;</code>
+   */
+  boolean hasPassage();
+  /**
+   * <code>.TestService.ReadingPassage passage = 1;</code>
+   */
+  generated.grpc.testservice.ReadingPassage getPassage();
+  /**
+   * <code>.TestService.ReadingPassage passage = 1;</code>
+   */
+  generated.grpc.testservice.ReadingPassageOrBuilder getPassageOrBuilder();
+
+  /**
+   * <code>.TestService.ReadingQuestion question = 2;</code>
    */
   boolean hasQuestion();
   /**
-   * <code>.TestService.ReadingQuestion question = 1;</code>
+   * <code>.TestService.ReadingQuestion question = 2;</code>
    */
   generated.grpc.testservice.ReadingQuestion getQuestion();
   /**
-   * <code>.TestService.ReadingQuestion question = 1;</code>
+   * <code>.TestService.ReadingQuestion question = 2;</code>
    */
   generated.grpc.testservice.ReadingQuestionOrBuilder getQuestionOrBuilder();
 
   /**
-   * <code>.TestService.AverageScore finalScore = 2;</code>
+   * <code>.TestService.AverageScore finalScore = 3;</code>
    */
   boolean hasFinalScore();
   /**
-   * <code>.TestService.AverageScore finalScore = 2;</code>
+   * <code>.TestService.AverageScore finalScore = 3;</code>
    */
   generated.grpc.testservice.AverageScore getFinalScore();
   /**
-   * <code>.TestService.AverageScore finalScore = 2;</code>
+   * <code>.TestService.AverageScore finalScore = 3;</code>
    */
   generated.grpc.testservice.AverageScoreOrBuilder getFinalScoreOrBuilder();
 

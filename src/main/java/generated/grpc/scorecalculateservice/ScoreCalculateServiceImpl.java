@@ -48,7 +48,7 @@ public final class ScoreCalculateServiceImpl {
       "\001\"#\n\nFinalScore\022\025\n\raverage_score\030\001 \001(\001\"\"" +
       "\n\nIeltsScore\022\024\n\014overall_band\030\001 \001(\001\"D\n\016Co" +
       "nvertedScore\022\030\n\020certificate_name\030\001 \001(\t\022\030" +
-      "\n\020equivalent_score\030\002 \001(\0012\334\001\n\025ScoreCalcul" +
+      "\n\020equivalent_score\030\002 \001(\t2\334\001\n\025ScoreCalcul" +
       "ateService\022_\n\025calculateAverageScore\022!.Sc" +
       "oreCalculateService.SkillScore\032!.ScoreCa" +
       "lculateService.FinalScore(\001\022b\n\024convertTo" +

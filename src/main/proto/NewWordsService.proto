@@ -9,6 +9,7 @@ import "google/protobuf/empty.proto";  // Import Empty type
 
 service NewWordsService {
     // Server returns available topic from the database
+    // server streaming
     rpc TopicRequest(google.protobuf.Empty) returns (stream Topic){}
     
     // Client sends a topic, server returns a stream of words related to the topic

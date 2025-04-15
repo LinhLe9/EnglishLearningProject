@@ -8,28 +8,41 @@ public interface ListeningQuestionOrScoreOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>.TestService.ListeningQuestion question = 1;</code>
+   * <code>.TestService.ListeningSound soundpath = 1;</code>
+   */
+  boolean hasSoundpath();
+  /**
+   * <code>.TestService.ListeningSound soundpath = 1;</code>
+   */
+  generated.grpc.testservice.ListeningSound getSoundpath();
+  /**
+   * <code>.TestService.ListeningSound soundpath = 1;</code>
+   */
+  generated.grpc.testservice.ListeningSoundOrBuilder getSoundpathOrBuilder();
+
+  /**
+   * <code>.TestService.ListeningQuestion question = 2;</code>
    */
   boolean hasQuestion();
   /**
-   * <code>.TestService.ListeningQuestion question = 1;</code>
+   * <code>.TestService.ListeningQuestion question = 2;</code>
    */
   generated.grpc.testservice.ListeningQuestion getQuestion();
   /**
-   * <code>.TestService.ListeningQuestion question = 1;</code>
+   * <code>.TestService.ListeningQuestion question = 2;</code>
    */
   generated.grpc.testservice.ListeningQuestionOrBuilder getQuestionOrBuilder();
 
   /**
-   * <code>.TestService.AverageScore finalScore = 2;</code>
+   * <code>.TestService.AverageScore finalScore = 3;</code>
    */
   boolean hasFinalScore();
   /**
-   * <code>.TestService.AverageScore finalScore = 2;</code>
+   * <code>.TestService.AverageScore finalScore = 3;</code>
    */
   generated.grpc.testservice.AverageScore getFinalScore();
   /**
-   * <code>.TestService.AverageScore finalScore = 2;</code>
+   * <code>.TestService.AverageScore finalScore = 3;</code>
    */
   generated.grpc.testservice.AverageScoreOrBuilder getFinalScoreOrBuilder();
 
