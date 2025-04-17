@@ -15,16 +15,6 @@ public final class TestServiceImpl {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_TestService_TestType_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_TestService_TestType_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_TestService_TestResponse_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_TestService_TestResponse_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_TestService_ListeningQuestion_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -108,58 +98,52 @@ public final class TestServiceImpl {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\021TestService.proto\022\013TestService\"7\n\010Test" +
-      "Type\022+\n\010testType\030\001 \001(\0162\031.TestService.Tes" +
-      "tCategory\"\037\n\014TestResponse\022\017\n\007message\030\001 \001" +
-      "(\t\"K\n\021ListeningQuestion\022\022\n\nquestionId\030\001 " +
-      "\001(\005\022\020\n\010question\030\002 \001(\t\022\020\n\010maxScore\030\003 \001(\005\"" +
-      "8\n\016ListeningSound\022\023\n\013soundPathId\030\001 \001(\005\022\021" +
-      "\n\tsoundpath\030\002 \001(\t\"7\n\021ListeningResponse\022\022" +
-      "\n\nquestionId\030\001 \001(\005\022\016\n\006answer\030\002 \001(\t\"$\n\014Av" +
-      "erageScore\022\024\n\014averageScore\030\001 \001(\001\"\274\001\n\030Lis" +
-      "teningQuestionOrScore\0220\n\tsoundpath\030\001 \001(\013" +
-      "2\033.TestService.ListeningSoundH\000\0222\n\010quest" +
-      "ion\030\002 \001(\0132\036.TestService.ListeningQuestio" +
-      "nH\000\022/\n\nfinalScore\030\003 \001(\0132\031.TestService.Av" +
-      "erageScoreH\000B\t\n\007message\"J\n\020SpeakingQuest" +
-      "ion\022\022\n\nquestionId\030\001 \001(\005\022\020\n\010question\030\002 \001(" +
-      "\t\022\020\n\010maxScore\030\003 \001(\005\"6\n\020SpeakingResponse\022" +
-      "\022\n\nquestionId\030\001 \001(\005\022\016\n\006answer\030\002 \001(\014\"\210\001\n\027" +
-      "SpeakingQuestionOrScore\0221\n\010question\030\001 \001(" +
-      "\0132\035.TestService.SpeakingQuestionH\000\022/\n\nfi" +
-      "nalScore\030\002 \001(\0132\031.TestService.AverageScor" +
-      "eH\000B\t\n\007message\"`\n\017ReadingQuestion\022\022\n\nque" +
-      "stionId\030\001 \001(\005\022\020\n\010question\030\002 \001(\t\022\025\n\rcorre" +
-      "ctAnswer\030\003 \001(\t\022\020\n\010maxScore\030\004 \001(\005\"5\n\017Read" +
+      "\n\021TestService.proto\022\013TestService\"K\n\021List" +
+      "eningQuestion\022\022\n\nquestionId\030\001 \001(\005\022\020\n\010que" +
+      "stion\030\002 \001(\t\022\020\n\010maxScore\030\003 \001(\005\"8\n\016Listeni" +
+      "ngSound\022\023\n\013soundPathId\030\001 \001(\005\022\021\n\tsoundpat" +
+      "h\030\002 \001(\t\"7\n\021ListeningResponse\022\022\n\nquestion" +
+      "Id\030\001 \001(\005\022\016\n\006answer\030\002 \001(\t\"$\n\014AverageScore" +
+      "\022\024\n\014averageScore\030\001 \001(\001\"\274\001\n\030ListeningQues" +
+      "tionOrScore\0220\n\tsoundpath\030\001 \001(\0132\033.TestSer" +
+      "vice.ListeningSoundH\000\0222\n\010question\030\002 \001(\0132" +
+      "\036.TestService.ListeningQuestionH\000\022/\n\nfin" +
+      "alScore\030\003 \001(\0132\031.TestService.AverageScore" +
+      "H\000B\t\n\007message\"J\n\020SpeakingQuestion\022\022\n\nque" +
+      "stionId\030\001 \001(\005\022\020\n\010question\030\002 \001(\t\022\020\n\010maxSc" +
+      "ore\030\003 \001(\005\"6\n\020SpeakingResponse\022\022\n\nquestio" +
+      "nId\030\001 \001(\005\022\016\n\006answer\030\002 \001(\014\"\210\001\n\027SpeakingQu" +
+      "estionOrScore\0221\n\010question\030\001 \001(\0132\035.TestSe" +
+      "rvice.SpeakingQuestionH\000\022/\n\nfinalScore\030\002" +
+      " \001(\0132\031.TestService.AverageScoreH\000B\t\n\007mes" +
+      "sage\"`\n\017ReadingQuestion\022\022\n\nquestionId\030\001 " +
+      "\001(\005\022\020\n\010question\030\002 \001(\t\022\025\n\rcorrectAnswer\030\003" +
+      " \001(\t\022\020\n\010maxScore\030\004 \001(\005\"5\n\017ReadingRespons" +
+      "e\022\022\n\nquestionId\030\001 \001(\005\022\016\n\006answer\030\002 \001(\t\"5\n" +
+      "\016ReadingPassage\022\022\n\npassage_id\030\001 \001(\t\022\017\n\007c" +
+      "ontent\030\002 \001(\t\"\266\001\n\026ReadingQuestionOrScore\022" +
+      ".\n\007passage\030\001 \001(\0132\033.TestService.ReadingPa" +
+      "ssageH\000\0220\n\010question\030\002 \001(\0132\034.TestService." +
+      "ReadingQuestionH\000\022/\n\nfinalScore\030\003 \001(\0132\031." +
+      "TestService.AverageScoreH\000B\t\n\007message\"I\n" +
+      "\017WritingQuestion\022\022\n\nquestionId\030\001 \001(\005\022\020\n\010" +
+      "question\030\002 \001(\t\022\020\n\010maxScore\030\003 \001(\005\"5\n\017Writ" +
       "ingResponse\022\022\n\nquestionId\030\001 \001(\005\022\016\n\006answe" +
-      "r\030\002 \001(\t\"5\n\016ReadingPassage\022\022\n\npassage_id\030" +
-      "\001 \001(\t\022\017\n\007content\030\002 \001(\t\"\266\001\n\026ReadingQuesti" +
-      "onOrScore\022.\n\007passage\030\001 \001(\0132\033.TestService" +
-      ".ReadingPassageH\000\0220\n\010question\030\002 \001(\0132\034.Te" +
-      "stService.ReadingQuestionH\000\022/\n\nfinalScor" +
-      "e\030\003 \001(\0132\031.TestService.AverageScoreH\000B\t\n\007" +
-      "message\"I\n\017WritingQuestion\022\022\n\nquestionId" +
-      "\030\001 \001(\005\022\020\n\010question\030\002 \001(\t\022\020\n\010maxScore\030\003 \001" +
-      "(\005\"5\n\017WritingResponse\022\022\n\nquestionId\030\001 \001(" +
-      "\005\022\016\n\006answer\030\002 \001(\t\"\206\001\n\026WritingQuestionOrS" +
-      "core\0220\n\010question\030\001 \001(\0132\034.TestService.Wri" +
-      "tingQuestionH\000\022/\n\nfinalScore\030\002 \001(\0132\031.Tes" +
-      "tService.AverageScoreH\000B\t\n\007message*E\n\014Te" +
-      "stCategory\022\013\n\007READING\020\000\022\r\n\tLISTENING\020\001\022\014" +
-      "\n\010SPEAKING\020\002\022\013\n\007WRITING\020\0032\301\003\n\013TestServic" +
-      "e\022=\n\007getTest\022\025.TestService.TestType\032\031.Te" +
-      "stService.TestResponse\"\000\022_\n\020getListening" +
-      "Test\022\036.TestService.ListeningResponse\032%.T" +
-      "estService.ListeningQuestionOrScore\"\000(\0010" +
-      "\001\022\\\n\017getSpeakingTest\022\035.TestService.Speak" +
-      "ingResponse\032$.TestService.SpeakingQuesti" +
-      "onOrScore\"\000(\0010\001\022Y\n\016getReadingTest\022\034.Test" +
-      "Service.ReadingResponse\032#.TestService.Re" +
-      "adingQuestionOrScore\"\000(\0010\001\022Y\n\016getWriting" +
-      "Test\022\034.TestService.WritingResponse\032#.Tes" +
-      "tService.WritingQuestionOrScore\"\000(\0010\001B/\n" +
-      "\032generated.grpc.testserviceB\017TestService" +
-      "ImplP\001b\006proto3"
+      "r\030\002 \001(\t\"\206\001\n\026WritingQuestionOrScore\0220\n\010qu" +
+      "estion\030\001 \001(\0132\034.TestService.WritingQuesti" +
+      "onH\000\022/\n\nfinalScore\030\002 \001(\0132\031.TestService.A" +
+      "verageScoreH\000B\t\n\007message2\202\003\n\013TestService" +
+      "\022_\n\020getListeningTest\022\036.TestService.Liste" +
+      "ningResponse\032%.TestService.ListeningQues" +
+      "tionOrScore\"\000(\0010\001\022\\\n\017getSpeakingTest\022\035.T" +
+      "estService.SpeakingResponse\032$.TestServic" +
+      "e.SpeakingQuestionOrScore\"\000(\0010\001\022Y\n\016getRe" +
+      "adingTest\022\034.TestService.ReadingResponse\032" +
+      "#.TestService.ReadingQuestionOrScore\"\000(\001" +
+      "0\001\022Y\n\016getWritingTest\022\034.TestService.Writi" +
+      "ngResponse\032#.TestService.WritingQuestion" +
+      "OrScore\"\000(\0010\001B/\n\032generated.grpc.testserv" +
+      "iceB\017TestServiceImplP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -173,104 +157,92 @@ public final class TestServiceImpl {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
-    internal_static_TestService_TestType_descriptor =
-      getDescriptor().getMessageTypes().get(0);
-    internal_static_TestService_TestType_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_TestService_TestType_descriptor,
-        new java.lang.String[] { "TestType", });
-    internal_static_TestService_TestResponse_descriptor =
-      getDescriptor().getMessageTypes().get(1);
-    internal_static_TestService_TestResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_TestService_TestResponse_descriptor,
-        new java.lang.String[] { "Message", });
     internal_static_TestService_ListeningQuestion_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(0);
     internal_static_TestService_ListeningQuestion_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_TestService_ListeningQuestion_descriptor,
         new java.lang.String[] { "QuestionId", "Question", "MaxScore", });
     internal_static_TestService_ListeningSound_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(1);
     internal_static_TestService_ListeningSound_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_TestService_ListeningSound_descriptor,
         new java.lang.String[] { "SoundPathId", "Soundpath", });
     internal_static_TestService_ListeningResponse_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(2);
     internal_static_TestService_ListeningResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_TestService_ListeningResponse_descriptor,
         new java.lang.String[] { "QuestionId", "Answer", });
     internal_static_TestService_AverageScore_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(3);
     internal_static_TestService_AverageScore_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_TestService_AverageScore_descriptor,
         new java.lang.String[] { "AverageScore", });
     internal_static_TestService_ListeningQuestionOrScore_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_TestService_ListeningQuestionOrScore_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_TestService_ListeningQuestionOrScore_descriptor,
         new java.lang.String[] { "Soundpath", "Question", "FinalScore", "Message", });
     internal_static_TestService_SpeakingQuestion_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_TestService_SpeakingQuestion_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_TestService_SpeakingQuestion_descriptor,
         new java.lang.String[] { "QuestionId", "Question", "MaxScore", });
     internal_static_TestService_SpeakingResponse_descriptor =
-      getDescriptor().getMessageTypes().get(8);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_TestService_SpeakingResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_TestService_SpeakingResponse_descriptor,
         new java.lang.String[] { "QuestionId", "Answer", });
     internal_static_TestService_SpeakingQuestionOrScore_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_TestService_SpeakingQuestionOrScore_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_TestService_SpeakingQuestionOrScore_descriptor,
         new java.lang.String[] { "Question", "FinalScore", "Message", });
     internal_static_TestService_ReadingQuestion_descriptor =
-      getDescriptor().getMessageTypes().get(10);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_TestService_ReadingQuestion_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_TestService_ReadingQuestion_descriptor,
         new java.lang.String[] { "QuestionId", "Question", "CorrectAnswer", "MaxScore", });
     internal_static_TestService_ReadingResponse_descriptor =
-      getDescriptor().getMessageTypes().get(11);
+      getDescriptor().getMessageTypes().get(9);
     internal_static_TestService_ReadingResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_TestService_ReadingResponse_descriptor,
         new java.lang.String[] { "QuestionId", "Answer", });
     internal_static_TestService_ReadingPassage_descriptor =
-      getDescriptor().getMessageTypes().get(12);
+      getDescriptor().getMessageTypes().get(10);
     internal_static_TestService_ReadingPassage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_TestService_ReadingPassage_descriptor,
         new java.lang.String[] { "PassageId", "Content", });
     internal_static_TestService_ReadingQuestionOrScore_descriptor =
-      getDescriptor().getMessageTypes().get(13);
+      getDescriptor().getMessageTypes().get(11);
     internal_static_TestService_ReadingQuestionOrScore_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_TestService_ReadingQuestionOrScore_descriptor,
         new java.lang.String[] { "Passage", "Question", "FinalScore", "Message", });
     internal_static_TestService_WritingQuestion_descriptor =
-      getDescriptor().getMessageTypes().get(14);
+      getDescriptor().getMessageTypes().get(12);
     internal_static_TestService_WritingQuestion_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_TestService_WritingQuestion_descriptor,
         new java.lang.String[] { "QuestionId", "Question", "MaxScore", });
     internal_static_TestService_WritingResponse_descriptor =
-      getDescriptor().getMessageTypes().get(15);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_TestService_WritingResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_TestService_WritingResponse_descriptor,
         new java.lang.String[] { "QuestionId", "Answer", });
     internal_static_TestService_WritingQuestionOrScore_descriptor =
-      getDescriptor().getMessageTypes().get(16);
+      getDescriptor().getMessageTypes().get(14);
     internal_static_TestService_WritingQuestionOrScore_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_TestService_WritingQuestionOrScore_descriptor,

@@ -7,9 +7,6 @@ option java_outer_classname = "TestServiceImpl";
 package TestService;
 
 service TestService {
-    // Unary request for selecting test type
-    rpc getTest(TestType) returns (TestResponse) {}
-
     // Listening - bidirectional streaming
     rpc getListeningTest (stream ListeningResponse) returns (stream ListeningQuestionOrScore) {}
 
@@ -22,25 +19,6 @@ service TestService {
     // Writing - bidirectional streaming
     rpc getWritingTest (stream WritingResponse) returns (stream WritingQuestionOrScore) {}
 }
-  
-    // Enum for test categories
-    enum TestCategory {
-        READING = 0;
-        LISTENING = 1;
-        SPEAKING = 2;
-        WRITING = 3;
-    }
-
-    // Message identifying the test type
-    message TestType {
-        TestCategory testType = 1;
-    }
-
-    // Message identifying the TestResponse - Response for test selection
-    message TestResponse {
-        string message = 1;
-    }
-
     // Message identifying the Listening Question
     message ListeningQuestion {
         int32 questionId = 1;

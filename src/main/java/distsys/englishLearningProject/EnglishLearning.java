@@ -4,6 +4,7 @@
  */
 package distsys.englishLearningProject;
 
+import com.google.protobuf.ByteString;
 import distsys.englishLearningProject.newWordsService.NewWordsClient;
 import distsys.englishLearningProject.scoreCalculateService.ScoreCalculateClient;
 import distsys.englishLearningProject.testService.TestClient;
@@ -20,6 +21,8 @@ import generated.grpc.testservice.ReadingPassage;
 import generated.grpc.testservice.ReadingQuestion;
 import generated.grpc.testservice.ReadingQuestionOrScore;
 import generated.grpc.testservice.ReadingResponse;
+import generated.grpc.testservice.SpeakingQuestionOrScore;
+import generated.grpc.testservice.SpeakingResponse;
 import generated.grpc.testservice.WritingQuestion;
 import generated.grpc.testservice.WritingQuestionOrScore;
 import generated.grpc.testservice.WritingResponse;
@@ -48,9 +51,9 @@ import javax.swing.SwingConstants;
  * @author DELL
  */
 public class EnglishLearning extends javax.swing.JFrame {
-    int inputCount = 1;
-    String soundPath;
-    Stack<String> choice = new Stack<>();
+    private int inputCount = 1;
+    private String soundPath;
+    private Stack<String> choice = new Stack<>();
     
     private Clip audioClip;
             
@@ -60,12 +63,15 @@ public class EnglishLearning extends javax.swing.JFrame {
     private final TestClient testClient;
     private final ScoreCalculateClient scoreClient;
     private String selectedAnswer = null;
+    private AudioRecorder recorder;
+    private byte[] audioBytes;
     
     // declare the streaming used
     private StreamObserver<ReadingResponse> requestObserver;
     private StreamObserver<WritingResponse> requestWObserver;
     private StreamObserver<ListeningResponse> requestLObserver;
     private StreamObserver<SkillScore> requestScoreObserver;
+    private StreamObserver<SpeakingResponse>requestSObserver;
 
     
     /**
@@ -82,6 +88,8 @@ public class EnglishLearning extends javax.swing.JFrame {
         newWordClient = new NewWordsClient();
         testClient = new TestClient();
         scoreClient = new ScoreCalculateClient();
+        
+        recorder = new AudioRecorder();
     }
 
     /**
@@ -92,6 +100,7 @@ public class EnglishLearning extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         optionGroup = new javax.swing.ButtonGroup();
         mainPanel = new javax.swing.JPanel();
@@ -99,6 +108,7 @@ public class EnglishLearning extends javax.swing.JFrame {
         WelcomeLabel = new javax.swing.JLabel();
         topicPanel = new javax.swing.JPanel();
         topicLabel = new javax.swing.JLabel();
+        topicDes = new javax.swing.JLabel();
         TopicBox = new javax.swing.JComboBox<>();
         topicResult = new javax.swing.JScrollPane();
         topicTextArea = new javax.swing.JTextArea();
@@ -108,6 +118,7 @@ public class EnglishLearning extends javax.swing.JFrame {
         wordResult = new javax.swing.JScrollPane();
         wordTextArea = new javax.swing.JTextArea();
         wordSearchButton = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
         readingPanel = new javax.swing.JPanel();
         RPassageScrollPane1 = new javax.swing.JScrollPane();
         RPassageTextArea = new javax.swing.JTextArea();
@@ -143,6 +154,9 @@ public class EnglishLearning extends javax.swing.JFrame {
         WInputTextArea = new javax.swing.JTextArea();
         nextWButton = new javax.swing.JButton();
         finishWButton = new javax.swing.JButton();
+        writingLable = new javax.swing.JLabel();
+        WAnswerLabel = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         listeningPanel = new javax.swing.JPanel();
         btnPlay = new javax.swing.JButton();
         LQuestionScrollPane = new javax.swing.JScrollPane();
@@ -151,6 +165,17 @@ public class EnglishLearning extends javax.swing.JFrame {
         nextLButton = new javax.swing.JButton();
         finishLButton = new javax.swing.JButton();
         btnStop = new javax.swing.JButton();
+        ListenLabel = new javax.swing.JLabel();
+        listenDes = new javax.swing.JLabel();
+        speakingPanel = new javax.swing.JPanel();
+        SQuestionScroll = new javax.swing.JScrollPane();
+        SQuestionTextArea = new javax.swing.JTextArea();
+        btnSPlay = new javax.swing.JButton();
+        btnSStop = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        btnSNext = new javax.swing.JButton();
+        btnSFinish = new javax.swing.JButton();
+        speakLabel = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         NewWordsMenu = new javax.swing.JMenu();
         topicSearch = new javax.swing.JMenuItem();
@@ -167,28 +192,27 @@ public class EnglishLearning extends javax.swing.JFrame {
 
         mainPanel.setLayout(new java.awt.CardLayout());
 
-        WelcomeLabel.setText("Welcome");
+        welcomePanel.setLayout(new java.awt.GridBagLayout());
 
-        javax.swing.GroupLayout welcomePanelLayout = new javax.swing.GroupLayout(welcomePanel);
-        welcomePanel.setLayout(welcomePanelLayout);
-        welcomePanelLayout.setHorizontalGroup(
-            welcomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(welcomePanelLayout.createSequentialGroup()
-                .addGap(211, 211, 211)
-                .addComponent(WelcomeLabel)
-                .addContainerGap(324, Short.MAX_VALUE))
-        );
-        welcomePanelLayout.setVerticalGroup(
-            welcomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(welcomePanelLayout.createSequentialGroup()
-                .addGap(153, 153, 153)
-                .addComponent(WelcomeLabel)
-                .addContainerGap(205, Short.MAX_VALUE))
-        );
+        WelcomeLabel.setText("<html> <center> \nWelcome to<br>\nEnglish Learning Application \n</center>\n</html>");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 923;
+        gridBagConstraints.ipady = 531;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        welcomePanel.add(WelcomeLabel, gridBagConstraints);
 
         mainPanel.add(welcomePanel, "card2");
 
+        topicLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        topicLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         topicLabel.setText("Topic");
+
+        topicDes.setText("Please select the topic");
 
         TopicBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         TopicBox.addActionListener(new java.awt.event.ActionListener() {
@@ -197,8 +221,12 @@ public class EnglishLearning extends javax.swing.JFrame {
             }
         });
 
+        topicResult.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
         topicTextArea.setColumns(20);
+        topicTextArea.setLineWrap(true);
         topicTextArea.setRows(5);
+        topicTextArea.setWrapStyleWord(true);
         topicResult.setViewportView(topicTextArea);
 
         javax.swing.GroupLayout topicPanelLayout = new javax.swing.GroupLayout(topicPanel);
@@ -206,32 +234,33 @@ public class EnglishLearning extends javax.swing.JFrame {
         topicPanelLayout.setHorizontalGroup(
             topicPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(topicPanelLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(topicPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(topicPanelLayout.createSequentialGroup()
-                        .addGap(211, 211, 211)
-                        .addComponent(topicLabel))
-                    .addGroup(topicPanelLayout.createSequentialGroup()
-                        .addGap(191, 191, 191)
-                        .addComponent(TopicBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(topicPanelLayout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(topicResult, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(130, Short.MAX_VALUE))
+                    .addComponent(TopicBox, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(topicLabel)
+                    .addComponent(topicDes))
+                .addGap(18, 18, 18)
+                .addComponent(topicResult, javax.swing.GroupLayout.DEFAULT_SIZE, 883, Short.MAX_VALUE)
+                .addGap(10, 10, 10))
         );
         topicPanelLayout.setVerticalGroup(
             topicPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(topicPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(topicLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(TopicBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(topicResult, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGap(20, 20, 20)
+                .addGroup(topicPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(topicPanelLayout.createSequentialGroup()
+                        .addComponent(topicLabel)
+                        .addGap(4, 4, 4)
+                        .addComponent(topicDes)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(TopicBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(topicResult, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         mainPanel.add(topicPanel, "card3");
 
+        wordEnter.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         wordEnter.setText("Word");
 
         wordEnterBox.addActionListener(new java.awt.event.ActionListener() {
@@ -241,15 +270,20 @@ public class EnglishLearning extends javax.swing.JFrame {
         });
 
         wordTextArea.setColumns(20);
+        wordTextArea.setLineWrap(true);
         wordTextArea.setRows(5);
+        wordTextArea.setWrapStyleWord(true);
         wordResult.setViewportView(wordTextArea);
 
         wordSearchButton.setText("Search");
+        wordSearchButton.setBorder(new javax.swing.border.MatteBorder(null));
         wordSearchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 wordSearchButtonActionPerformed(evt);
             }
         });
+
+        jLabel5.setText("<html>\nPlease enter your word <br>\nin the box below and click search\n</html>");
 
         javax.swing.GroupLayout wordPanelLayout = new javax.swing.GroupLayout(wordPanel);
         wordPanel.setLayout(wordPanelLayout);
@@ -259,25 +293,28 @@ public class EnglishLearning extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(wordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(wordEnter)
-                    .addComponent(wordEnterBox, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(wordSearchButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
-                .addComponent(wordResult, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                    .addComponent(wordEnterBox, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(wordSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(wordResult, javax.swing.GroupLayout.PREFERRED_SIZE, 881, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         wordPanelLayout.setVerticalGroup(
             wordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(wordPanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(31, 31, 31)
                 .addGroup(wordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(wordResult, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(wordResult, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(wordPanelLayout.createSequentialGroup()
                         .addComponent(wordEnter)
+                        .addGap(8, 8, 8)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(wordEnterBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(3, 3, 3)
-                        .addComponent(wordSearchButton)))
-                .addContainerGap(100, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(wordSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(100, 100, 100))
         );
 
         mainPanel.add(wordPanel, "card4");
@@ -336,9 +373,10 @@ public class EnglishLearning extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("READING TEST");
 
-        jLabel2.setText("<html> \nPlease complete the<br>\nfollowing 20 questions <br> \nusing this passage \n</html> \n");
+        jLabel2.setText("<html>  Please complete the following <br> 20 questions using this passage  <br> <br> Click Next button to move to the next question <br> Click Finnish button to receive the final score</html>  ");
 
         javax.swing.GroupLayout readingPanelLayout = new javax.swing.GroupLayout(readingPanel);
         readingPanel.setLayout(readingPanelLayout);
@@ -346,13 +384,13 @@ public class EnglishLearning extends javax.swing.JFrame {
             readingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, readingPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(readingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(readingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
+                .addGroup(readingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(readingPanelLayout.createSequentialGroup()
-                        .addComponent(RQuestionScrollPane1)
+                        .addComponent(RQuestionScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 638, Short.MAX_VALUE)
                         .addGap(28, 28, 28)
                         .addGroup(readingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(optionD)
@@ -361,48 +399,44 @@ public class EnglishLearning extends javax.swing.JFrame {
                                     .addComponent(optionA)
                                     .addComponent(optionB, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(optionC, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addGap(18, 18, 18)
-                                .addGroup(readingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(nextButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(finishButton))))
-                        .addGap(34, 34, 34))
-                    .addGroup(readingPanelLayout.createSequentialGroup()
-                        .addComponent(RPassageScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(16, 16, 16))))
+                                .addGap(30, 30, 30)
+                                .addGroup(readingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(nextButton)
+                                    .addComponent(finishButton)))))
+                    .addComponent(RPassageScrollPane1))
+                .addGap(22, 22, 22))
         );
         readingPanelLayout.setVerticalGroup(
             readingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(readingPanelLayout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addGap(22, 22, 22)
                 .addGroup(readingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(RPassageScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(readingPanelLayout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(2, 2, 2)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(RPassageScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(readingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(RQuestionScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
                     .addGroup(readingPanelLayout.createSequentialGroup()
-                        .addGroup(readingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(readingPanelLayout.createSequentialGroup()
-                                .addComponent(optionA)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(optionB)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(optionC))
-                            .addGroup(readingPanelLayout.createSequentialGroup()
-                                .addComponent(nextButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(finishButton)))
+                        .addGroup(readingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(optionA)
+                            .addComponent(nextButton))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(readingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(optionB)
+                            .addComponent(finishButton))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(optionC)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(optionD)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addContainerGap(275, Short.MAX_VALUE))
+                    .addComponent(RQuestionScrollPane1)))
         );
 
         mainPanel.add(readingPanel, "card5");
 
+        IeltsScoreLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         IeltsScoreLabel.setText("<html>IELTS OVERALL \nCALCULATION</html>");
 
         enterEleScore.addActionListener(new java.awt.event.ActionListener() {
@@ -427,12 +461,15 @@ public class EnglishLearning extends javax.swing.JFrame {
 
         eleScoreLabel.setText("Element Score");
 
-        IeltsScoreDes.setText("<html> Please enter each component score <br> in the next field </html>\n");
+        IeltsScoreDes.setText("<html> Please enter each component score in the next field </html>\n");
 
         IeltsScoreResult.setColumns(20);
+        IeltsScoreResult.setLineWrap(true);
         IeltsScoreResult.setRows(5);
+        IeltsScoreResult.setWrapStyleWord(true);
         IeltsScoreScroll.setViewportView(IeltsScoreResult);
 
+        EquivalentLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         EquivalentLabel.setText("<html> IELTS <br> EQUIVALENT ENGLISH CERT </html>");
 
         enterIELTSScore.addActionListener(new java.awt.event.ActionListener() {
@@ -445,7 +482,7 @@ public class EnglishLearning extends javax.swing.JFrame {
         EquivalentResult.setRows(5);
         EquivalentScroll.setViewportView(EquivalentResult);
 
-        EquivalentScoreDes.setText("<html> Please enter your IELTS score <br> in the field below </html>\n");
+        EquivalentScoreDes.setText("<html> Please enter your IELTS score in the field below </html>\n");
         EquivalentScoreDes.setToolTipText("");
 
         getEquipScoreButton.setText("Get");
@@ -464,45 +501,51 @@ public class EnglishLearning extends javax.swing.JFrame {
                 .addGroup(IeltsScorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(IeltsScorePanelLayout.createSequentialGroup()
                         .addGroup(IeltsScorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(IeltsScorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(EquivalentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(enterIELTSScore)
-                                .addComponent(EquivalentScoreDes, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE))
-                            .addComponent(getEquipScoreButton))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(EquivalentScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(IeltsScoreScroll, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, IeltsScorePanelLayout.createSequentialGroup()
-                        .addGroup(IeltsScorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(IeltsScoreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(IeltsScoreDes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(50, 50, 50)
-                        .addGroup(IeltsScorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(eleScoreLabel)
-                            .addComponent(enterEleScore, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                        .addGroup(IeltsScorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(getOverallButton, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(SendScoreButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(45, 45, 45))
+                            .addGroup(IeltsScorePanelLayout.createSequentialGroup()
+                                .addGroup(IeltsScorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(EquivalentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(EquivalentScoreDes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(getEquipScoreButton)
+                                    .addComponent(enterIELTSScore))
+                                .addGap(18, 18, 18)
+                                .addComponent(EquivalentScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 728, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, IeltsScorePanelLayout.createSequentialGroup()
+                                .addGroup(IeltsScorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(IeltsScoreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(IeltsScoreDes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(IeltsScorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(IeltsScorePanelLayout.createSequentialGroup()
+                                        .addComponent(enterEleScore, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(46, 46, 46)
+                                        .addComponent(getOverallButton))
+                                    .addGroup(IeltsScorePanelLayout.createSequentialGroup()
+                                        .addComponent(eleScoreLabel)
+                                        .addGap(267, 267, 267)
+                                        .addComponent(SendScoreButton, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(45, 45, 45))
+                    .addGroup(IeltsScorePanelLayout.createSequentialGroup()
+                        .addComponent(IeltsScoreScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 1034, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(44, Short.MAX_VALUE))))
         );
         IeltsScorePanelLayout.setVerticalGroup(
             IeltsScorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(IeltsScorePanelLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addGap(23, 23, 23)
                 .addGroup(IeltsScorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(IeltsScorePanelLayout.createSequentialGroup()
                         .addGroup(IeltsScorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(eleScoreLabel)
-                            .addComponent(IeltsScoreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(SendScoreButton)
+                            .addComponent(eleScoreLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(IeltsScorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(IeltsScoreDes)
-                            .addComponent(enterEleScore)))
-                    .addGroup(IeltsScorePanelLayout.createSequentialGroup()
-                        .addComponent(SendScoreButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(getOverallButton)))
+                        .addGroup(IeltsScorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(getOverallButton)
+                            .addComponent(enterEleScore, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(IeltsScorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(IeltsScoreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(IeltsScorePanelLayout.createSequentialGroup()
+                            .addGap(22, 22, 22)
+                            .addComponent(IeltsScoreDes, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(IeltsScoreScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
@@ -515,18 +558,22 @@ public class EnglishLearning extends javax.swing.JFrame {
                         .addComponent(enterIELTSScore, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(getEquipScoreButton))
-                    .addComponent(EquivalentScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(36, Short.MAX_VALUE))
+                    .addComponent(EquivalentScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         mainPanel.add(IeltsScorePanel, "card6");
 
         WQuestionTextArea.setColumns(20);
+        WQuestionTextArea.setLineWrap(true);
         WQuestionTextArea.setRows(5);
+        WQuestionTextArea.setWrapStyleWord(true);
         WQuestionScrollPane.setViewportView(WQuestionTextArea);
 
         WInputTextArea.setColumns(20);
+        WInputTextArea.setLineWrap(true);
         WInputTextArea.setRows(5);
+        WInputTextArea.setWrapStyleWord(true);
         WInputScroll.setViewportView(WInputTextArea);
 
         nextWButton.setText("Next");
@@ -543,36 +590,49 @@ public class EnglishLearning extends javax.swing.JFrame {
             }
         });
 
+        writingLable.setText("<html>There are 3 questions. <br> Please click next to display the next question, \nand click Finish after finishing answering three questions. <br> </html>");
+
+        WAnswerLabel.setText("Please type your answer in the following input box");
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel4.setText("WRITING TEST");
+
         javax.swing.GroupLayout writingPanelLayout = new javax.swing.GroupLayout(writingPanel);
         writingPanel.setLayout(writingPanelLayout);
         writingPanelLayout.setHorizontalGroup(
             writingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(writingPanelLayout.createSequentialGroup()
-                .addGroup(writingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(22, 22, 22)
+                .addGroup(writingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(writingPanelLayout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(writingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(WQuestionScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
-                            .addComponent(WInputScroll)))
-                    .addGroup(writingPanelLayout.createSequentialGroup()
-                        .addGap(118, 118, 118)
                         .addComponent(nextWButton)
                         .addGap(38, 38, 38)
-                        .addComponent(finishWButton)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                        .addComponent(finishWButton))
+                    .addComponent(writingLable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(WAnswerLabel)
+                    .addComponent(jLabel4)
+                    .addComponent(WInputScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 1029, Short.MAX_VALUE)
+                    .addComponent(WQuestionScrollPane))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         writingPanelLayout.setVerticalGroup(
             writingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(writingPanelLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(WQuestionScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(WInputScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(writingLable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(WQuestionScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(WAnswerLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(WInputScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(writingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nextWButton)
                     .addComponent(finishWButton))
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addGap(17, 17, 17))
         );
 
         mainPanel.add(writingPanel, "card7");
@@ -585,7 +645,9 @@ public class EnglishLearning extends javax.swing.JFrame {
         });
 
         LQuestionTextArea.setColumns(20);
+        LQuestionTextArea.setLineWrap(true);
         LQuestionTextArea.setRows(5);
+        LQuestionTextArea.setWrapStyleWord(true);
         LQuestionScrollPane.setViewportView(LQuestionTextArea);
 
         nextLButton.setText("Next");
@@ -609,50 +671,143 @@ public class EnglishLearning extends javax.swing.JFrame {
             }
         });
 
+        ListenLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        ListenLabel.setText("LISTENING TEST");
+
+        listenDes.setText("<html>\nClick the Play button to play the audio <br> used for 20 following questions.\n</html>\n");
+
         javax.swing.GroupLayout listeningPanelLayout = new javax.swing.GroupLayout(listeningPanel);
         listeningPanel.setLayout(listeningPanelLayout);
         listeningPanelLayout.setHorizontalGroup(
             listeningPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(listeningPanelLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, listeningPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(listeningPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(LAnswerTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(listeningPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(ListenLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(listenDes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnPlay, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnStop, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(listeningPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(listeningPanelLayout.createSequentialGroup()
-                        .addGroup(listeningPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btnStop, javax.swing.GroupLayout.PREFERRED_SIZE, 58, Short.MAX_VALUE)
-                            .addComponent(btnPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(LQuestionScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(27, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, listeningPanelLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(nextLButton)
-                .addGap(44, 44, 44)
-                .addComponent(finishLButton)
-                .addGap(136, 136, 136))
+                        .addComponent(nextLButton)
+                        .addGap(44, 44, 44)
+                        .addComponent(finishLButton))
+                    .addGroup(listeningPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(LAnswerTextField)
+                        .addComponent(LQuestionScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 839, Short.MAX_VALUE)))
+                .addGap(41, 41, 41))
         );
         listeningPanelLayout.setVerticalGroup(
             listeningPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(listeningPanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(27, 27, 27)
                 .addGroup(listeningPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(LQuestionScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(listeningPanelLayout.createSequentialGroup()
+                        .addComponent(ListenLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(listenDes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnPlay)
-                        .addGap(10, 10, 10)
-                        .addComponent(btnStop))
-                    .addComponent(LQuestionScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(LAnswerTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnStop)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addComponent(LAnswerTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(listeningPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nextLButton)
                     .addComponent(finishLButton))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGap(32, 32, 32))
         );
 
         mainPanel.add(listeningPanel, "card8");
 
+        SQuestionTextArea.setColumns(20);
+        SQuestionTextArea.setRows(5);
+        SQuestionScroll.setViewportView(SQuestionTextArea);
+
+        btnSPlay.setText("Record");
+        btnSPlay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSPlayActionPerformed(evt);
+            }
+        });
+
+        btnSStop.setText("Stop");
+        btnSStop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSStopActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("<html> \nPlease record your answer by <br>\nusing Record/ Stop button below\n</html>\n");
+
+        btnSNext.setText("Next");
+        btnSNext.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSNextActionPerformed(evt);
+            }
+        });
+
+        btnSFinish.setText("Finish");
+
+        speakLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        speakLabel.setText("SPEAKING TEST");
+
+        javax.swing.GroupLayout speakingPanelLayout = new javax.swing.GroupLayout(speakingPanel);
+        speakingPanel.setLayout(speakingPanelLayout);
+        speakingPanelLayout.setHorizontalGroup(
+            speakingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(speakingPanelLayout.createSequentialGroup()
+                .addGroup(speakingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(speakingPanelLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(speakingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(speakingPanelLayout.createSequentialGroup()
+                                .addComponent(btnSNext)
+                                .addGap(46, 46, 46)
+                                .addComponent(btnSFinish))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(speakLabel)))
+                    .addGroup(speakingPanelLayout.createSequentialGroup()
+                        .addGap(74, 74, 74)
+                        .addGroup(speakingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnSStop)
+                            .addComponent(btnSPlay))))
+                .addGap(18, 18, 18)
+                .addComponent(SQuestionScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 825, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(38, Short.MAX_VALUE))
+        );
+        speakingPanelLayout.setVerticalGroup(
+            speakingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(speakingPanelLayout.createSequentialGroup()
+                .addGroup(speakingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(speakingPanelLayout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(speakLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSPlay)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSStop)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(speakingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnSNext)
+                            .addComponent(btnSFinish)))
+                    .addGroup(speakingPanelLayout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(SQuestionScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(34, Short.MAX_VALUE))
+        );
+
+        mainPanel.add(speakingPanel, "card9");
+
+        NewWordsMenu.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         NewWordsMenu.setText("New Words");
+        NewWordsMenu.setMargin(new java.awt.Insets(6, 6, 6, 6));
 
         topicSearch.setText("Search by Topic");
         topicSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -667,6 +822,7 @@ public class EnglishLearning extends javax.swing.JFrame {
 
         jMenuBar1.add(NewWordsMenu);
 
+        TestMenu.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         TestMenu.setText("Test");
 
         readingTest.setText("Reading");
@@ -688,7 +844,8 @@ public class EnglishLearning extends javax.swing.JFrame {
 
         jMenuBar1.add(TestMenu);
 
-        ScoreCalMenu.setText("Score Cal");
+        ScoreCalMenu.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        ScoreCalMenu.setText("Score Calculation");
 
         CalScore.setText("Calculate Score");
         ScoreCalMenu.add(CalScore);
@@ -862,6 +1019,40 @@ public class EnglishLearning extends javax.swing.JFrame {
         // TODO add your handling code here:
         stopAudio();
     }//GEN-LAST:event_btnStopActionPerformed
+
+    private void btnSStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSStopActionPerformed
+        // TODO add your handling code here:
+        try {
+           audioBytes = recorder.stopRecording();
+            // send to gRPC server
+//            AudioRequest request = AudioRequest.newBuilder()
+//                .setAudioData(ByteString.copyFrom(audioBytes))
+//                .build();
+//            AudioResponse response = stub.uploadAudio(request);
+//            JOptionPane.showMessageDialog(this, "Sent to server: " + response.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnSStopActionPerformed
+
+    private void btnSPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSPlayActionPerformed
+        // TODO add your handling code here:
+        try {
+            recorder.startRecording();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnSPlayActionPerformed
+
+    private void btnSNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSNextActionPerformed
+        // TODO add your handling code here:
+        try {
+            requestSObserver.onNext(SpeakingResponse.newBuilder().setAnswer(ByteString.copyFrom(audioBytes)).build());
+            audioBytes= null;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnSNextActionPerformed
     
     /* 
     Method to show the pannel linked with different menu bar and item  
@@ -874,8 +1065,8 @@ public class EnglishLearning extends javax.swing.JFrame {
         // connect with the test menu
         readingTest.addActionListener(e -> showReadingTestPanel());
         writingTest.addActionListener(e -> showWritingTestPanel());
-        speakingTest.addActionListener(e -> showListeningTestPanel());
-        listeningTest.addActionListener(e -> showTestPanel("Listening"));
+        speakingTest.addActionListener(e -> showSpeakingTestPanel());
+        listeningTest.addActionListener(e -> showListeningTestPanel());
         
         // connect with the Score Calculation menu
         CalScore.addActionListener(e -> showScorePanel());
@@ -1051,7 +1242,6 @@ public class EnglishLearning extends javax.swing.JFrame {
         SwingUtilities.invokeLater(() -> {
             // screen when waiting for the server
             WQuestionTextArea.setText("Waiting for question...");
-            WInputTextArea.setText("Enter your answer here...");
         });
         
         StreamObserver<WritingQuestionOrScore> responseWObserver = new StreamObserver<WritingQuestionOrScore>() {
@@ -1132,7 +1322,6 @@ public class EnglishLearning extends javax.swing.JFrame {
         SwingUtilities.invokeLater(() -> {
             // screen when waiting for the server
             LQuestionTextArea.setText("Waiting for question...");
-            LAnswerTextField.setText("Please enter your answer here...");
         });
 
         StreamObserver<ListeningQuestionOrScore> responseLObserver = new StreamObserver<ListeningQuestionOrScore>() {
@@ -1179,6 +1368,55 @@ public class EnglishLearning extends javax.swing.JFrame {
 
         // Start the test
         requestLObserver = testClient.getListeningTest(responseLObserver);
+    }
+    
+    private void showSpeakingTestPanel() {
+        ((CardLayout)mainPanel.getLayout()).show(mainPanel, "card9");
+        showSpeakingTest();
+    }
+    
+    private void showSpeakingTest() {
+        SwingUtilities.invokeLater(() -> {
+            // screen when waiting for the server
+            SQuestionTextArea.setText("Waiting for question...");
+        });
+
+        StreamObserver<SpeakingQuestionOrScore> responseSObserver = new StreamObserver<SpeakingQuestionOrScore>() {
+        
+            @Override
+            public void onNext(SpeakingQuestionOrScore response) {
+                SwingUtilities.invokeLater(() -> {
+                    // if the onNext is question, update the Question area
+                    if (response.hasQuestion()) {
+                        SQuestionTextArea.setText(response.getQuestion().getQuestion());
+                    }
+                    
+                    // if the onNext is final score, a JOptionPane message dialog pop up
+                    else if (response.hasFinalScore()) {
+                        JOptionPane.showMessageDialog(EnglishLearning.this,
+                            "Test completed! Score: " + response.getFinalScore().getAverageScore());
+                        System.out.println("DEBUG - score " + response.getFinalScore().getAverageScore());
+
+                    }
+                });
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                SwingUtilities.invokeLater(() -> {
+                    RPassageTextArea.setText("Error: " + t.getMessage());
+                    t.printStackTrace();
+                });
+            }
+
+            @Override
+            public void onCompleted() {
+                System.out.println("DEBUG - Stream completed");
+            }
+        };
+
+        // Start the test
+        requestSObserver = testClient.getSpeakingTest(responseSObserver);
     }
     
     private void showTestPanel(String testType) {
@@ -1300,21 +1538,29 @@ public class EnglishLearning extends javax.swing.JFrame {
     private javax.swing.JTextField LAnswerTextField;
     private javax.swing.JScrollPane LQuestionScrollPane;
     private javax.swing.JTextArea LQuestionTextArea;
+    private javax.swing.JLabel ListenLabel;
     private javax.swing.JMenu NewWordsMenu;
     private javax.swing.JScrollPane RPassageScrollPane1;
     private javax.swing.JTextArea RPassageTextArea;
     private javax.swing.JScrollPane RQuestionScrollPane1;
     private javax.swing.JTextArea RQuestionTextArea;
+    private javax.swing.JScrollPane SQuestionScroll;
+    private javax.swing.JTextArea SQuestionTextArea;
     private javax.swing.JMenu ScoreCalMenu;
     private javax.swing.JButton SendScoreButton;
     private javax.swing.JMenu TestMenu;
     private javax.swing.JComboBox<String> TopicBox;
+    private javax.swing.JLabel WAnswerLabel;
     private javax.swing.JScrollPane WInputScroll;
     private javax.swing.JTextArea WInputTextArea;
     private javax.swing.JScrollPane WQuestionScrollPane;
     private javax.swing.JTextArea WQuestionTextArea;
     private javax.swing.JLabel WelcomeLabel;
     private javax.swing.JButton btnPlay;
+    private javax.swing.JButton btnSFinish;
+    private javax.swing.JButton btnSNext;
+    private javax.swing.JButton btnSPlay;
+    private javax.swing.JButton btnSStop;
     private javax.swing.JButton btnStop;
     private javax.swing.JLabel eleScoreLabel;
     private javax.swing.JTextField enterEleScore;
@@ -1326,7 +1572,11 @@ public class EnglishLearning extends javax.swing.JFrame {
     private javax.swing.JButton getOverallButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JLabel listenDes;
     private javax.swing.JPanel listeningPanel;
     private javax.swing.JMenuItem listeningTest;
     private javax.swing.JPanel mainPanel;
@@ -1340,7 +1590,10 @@ public class EnglishLearning extends javax.swing.JFrame {
     private javax.swing.ButtonGroup optionGroup;
     private javax.swing.JPanel readingPanel;
     private javax.swing.JMenuItem readingTest;
+    private javax.swing.JLabel speakLabel;
+    private javax.swing.JPanel speakingPanel;
     private javax.swing.JMenuItem speakingTest;
+    private javax.swing.JLabel topicDes;
     private javax.swing.JLabel topicLabel;
     private javax.swing.JPanel topicPanel;
     private javax.swing.JScrollPane topicResult;
@@ -1354,6 +1607,7 @@ public class EnglishLearning extends javax.swing.JFrame {
     private javax.swing.JMenuItem wordSearch;
     private javax.swing.JButton wordSearchButton;
     private javax.swing.JTextArea wordTextArea;
+    private javax.swing.JLabel writingLable;
     private javax.swing.JPanel writingPanel;
     private javax.swing.JMenuItem writingTest;
     // End of variables declaration//GEN-END:variables

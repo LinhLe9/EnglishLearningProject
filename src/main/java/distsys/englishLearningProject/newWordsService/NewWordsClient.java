@@ -35,42 +35,10 @@ public class NewWordsClient {
     
     // channel 
     ManagedChannel channel;
-//
-//    public static void main(String[] args) {
-//
-//        ManagedChannel channel = ManagedChannelBuilder
-//                .forAddress("localhost", 50051)
-//                .usePlaintext()
-//                .build();
-//
-//        //non-blocking stub is for asynchronous calls
-//        //client does not wait for server to complete before starting to read responses
-//        //must use non-blocking stub for client streaming and bidirectional streaming
-//        //can also use for Server Streaming asynchronously 
-//        asyncStub = NewWordsServiceGrpc.newStub(channel);
-//        syncStub = NewWordsServiceGrpc.newBlockingStub(channel);
-//        
-//        try {
-//                    System.out.println("Unary Streaming");
-//                    getWordDefinition();
-//                    Thread.sleep(500);
-//                    
-//                    System.out.println("Server Streaming");
-//                    getWordsByTopic();
-//                    Thread.sleep(1000);
-//                    
-//                    System.out.println("Server Streaming - get Topic");
-//                    System.out.println(getTopicRequest());
-//                    Thread.sleep(1000);
-//                } catch (RuntimeException e) {
-//                    e.printStackTrace();
-//                } catch (InterruptedException e) {			
-//                    e.printStackTrace();
-//                }
-//    }
+
     public NewWordsClient (){
         channel = ManagedChannelBuilder
-                .forAddress("localhost", 50051)
+                .forAddress("localhost", 50052)
                 .usePlaintext()
                 .build();
         asyncStub = NewWordsServiceGrpc.newStub(channel);
@@ -82,7 +50,7 @@ public class NewWordsClient {
      * UNARY: for a specific location get the temperature right now rpc
      */
     public WordDetail getWordDefinition(String wordSearch) {
-        System.out.println("Unary - getCurrentTemperature ");
+        System.out.println("Unary - getWordDefinition ");
         Word request = Word.newBuilder()
                         .setWord(wordSearch)
                         .build();
@@ -105,27 +73,6 @@ public class NewWordsClient {
     
     public Iterator<WordList> getWordsByTopic(String topicR) {
         System.out.println("Server Streaming syncStub - getWordsByTopic ");
-//        StreamObserver<WordList> responseObserver = new StreamObserver<WordList>() {
-//            @Override
-//            public void onNext(WordList response) {
-//		System.out.println(LocalTime.now().toString() + ": response from server " + "\n" 
-//                                    + response.getWord() + " " 
-//                                    + response.getPronunciation() + "\n"
-//                                    + response.getDefinition()
-//                                    + "\n");
-//            }
-//            
-//            @Override
-//            public void onError(Throwable t) {
-//		t.printStackTrace();
-//            }
-//
-//            @Override
-//            public void onCompleted() {
-//		System.out.println(LocalTime.now().toString() + ": stream is completed.");
-//            }
-//
-//	};
         Iterator<WordList> responses = null;
         
         try{
@@ -135,7 +82,6 @@ public class NewWordsClient {
             e.printStackTrace();
         }
         return responses;
-
     }
     
     /**

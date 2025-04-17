@@ -11,6 +11,8 @@ import generated.grpc.testservice.ReadingPassage;
 import generated.grpc.testservice.ReadingQuestion;
 import generated.grpc.testservice.ReadingQuestionOrScore;
 import generated.grpc.testservice.ReadingResponse;
+import generated.grpc.testservice.SpeakingQuestionOrScore;
+import generated.grpc.testservice.SpeakingResponse;
 import generated.grpc.testservice.TestServiceGrpc;
 import generated.grpc.testservice.TestServiceGrpc.TestServiceBlockingStub;
 import generated.grpc.testservice.TestServiceGrpc.TestServiceStub;
@@ -44,11 +46,43 @@ public class TestClient {
     // constructor
     public TestClient (){
         channel = ManagedChannelBuilder
-                .forAddress("localhost", 50051)
+                .forAddress("localhost", 50055)
                 .usePlaintext()
                 .build();
         asyncStub = TestServiceGrpc.newStub(channel);
         syncStub = TestServiceGrpc.newBlockingStub(channel);  
+    }
+    
+    //StreamObserver<ListeningResponse>
+    public StreamObserver<SpeakingResponse> getSpeakingTest(StreamObserver<SpeakingQuestionOrScore> responseObserver) {
+    
+    StreamObserver<SpeakingResponse> requestSObserver = asyncStub.getSpeakingTest(
+        new StreamObserver<SpeakingQuestionOrScore>() {
+            @Override
+            /**
+            * NOTE that in client streaming we expect only one response from the server.So we should see
+            * this message only once. We could add some error handling in here to prevent the client from processing
+            * more than one reply from the server
+            */
+            public void onNext(SpeakingQuestionOrScore response) {
+                System.out.println("DEBUG - Client received: " + response);
+                responseObserver.onNext(response);
+                
+            }
+
+            @Override
+            public void onError(Throwable t) {
+		t.printStackTrace();
+                responseObserver.onError(t);
+            }
+
+            @Override
+            public void onCompleted() {
+		System.out.println("DEBUG - Client stream completed");
+                responseObserver.onCompleted();
+            }
+        });  
+        return requestSObserver;
     }
     
     //StreamObserver<ListeningResponse>
@@ -108,7 +142,7 @@ public class TestClient {
             }
         });
     
-    return requestObserver;
+        return requestObserver;
     }
     
     
@@ -143,15 +177,12 @@ public class TestClient {
     public static void main(String[] args) {
     TestClient client = new TestClient();
     Scanner scanner = new Scanner(System.in);
-
-    // Giữ lại requestObserver để gửi dữ liệu từ client
+    
     final StreamObserver<ReadingResponse>[] requestObserverHolder = new StreamObserver[1];
 
-    // Observer nhận phản hồi từ server (gửi câu hỏi hoặc điểm)
     StreamObserver<ReadingQuestionOrScore> responseObserver = new StreamObserver<ReadingQuestionOrScore>() {
         @Override
         public void onNext(ReadingQuestionOrScore value) {
-            // Giả sử server gửi ReadingQuestion (nếu gửi điểm thì cần check thêm)
             if (value.hasQuestion()) {
                 ReadingQuestion question = value.getQuestion();
                 System.out.println("📘 Question: " + question);
@@ -159,7 +190,6 @@ public class TestClient {
                 String answer = scanner.nextLine();
 
                 if (answer.equalsIgnoreCase("exit")) {
-                    // Gửi tín hiệu kết thúc tới server
                     requestObserverHolder[0].onCompleted();
                     return;
                 }
@@ -185,11 +215,8 @@ public class TestClient {
         }
     };
 
-    // Khởi động stream
     StreamObserver<ReadingResponse> requestObserver = client.getReadingTest(responseObserver);
     requestObserverHolder[0] = requestObserver;
-
-    // Mọi input được xử lý trong responseObserver.onNext()
 }
     
 }

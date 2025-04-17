@@ -27,7 +27,7 @@ public class NewWordsService extends NewWordsServiceImplBase {
 
         NewWordsService zooServer = new NewWordsService();
 
-        int port = 50051;
+        int port = 50052;
 
         try {
             Server server = ServerBuilder.forPort(port)
