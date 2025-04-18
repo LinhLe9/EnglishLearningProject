@@ -86,8 +86,11 @@ public class ScoreCalculateService extends ScoreCalculateServiceImplBase {
                     temp = temp + v;
                     System.out.println("value:" + v);
                 }
-                double mean = (double) (temp/list.size());
-                double roundMean = Math.round(mean * 2) / 2;
+                System.out.println("temp: " + temp);  
+                double mean = ((double) temp) / ((double) list.size());
+                System.out.println("mean (before rounding): " + mean); 
+                double roundMean = Math.ceil(mean * 2) / 2;
+                System.out.println("roundMean (after rounding): " + mean); 
 
                 FinalScore reply = FinalScore.newBuilder().setAverageScore(roundMean).build();
 

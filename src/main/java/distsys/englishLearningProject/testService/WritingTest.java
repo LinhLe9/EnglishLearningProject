@@ -82,12 +82,14 @@ public class WritingTest {
         return sb.toString();
     }
     
+    
     public int getRandomTestId() {
         List<Integer> keys = new ArrayList<>(mapQuestion.keySet());
         if (keys.isEmpty()) return -1; 
         Random rand = new Random();
         return keys.get(rand.nextInt(keys.size()));
     }
+
     
     public  static void main (String args[]){
         WritingTest myW = new WritingTest();

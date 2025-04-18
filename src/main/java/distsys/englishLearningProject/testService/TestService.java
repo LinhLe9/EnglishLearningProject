@@ -119,7 +119,8 @@ public class TestService extends TestServiceImplBase {
         SpeakingExecise Sexercise = Stest.getMapTest().get(testId);
         List<SpeakingQ> Squestions = Sexercise.getQuestions();
             for (int i = 0; i< Squestions.size();i++){
-                if(answer.get(i) != null){
+                byte[] audioData = answer.get(i);
+                if(audioData != null && audioData.length > 0){
                     score = score + Squestions.get(i).getMaxScore();
                 }
             }
@@ -246,8 +247,6 @@ public class TestService extends TestServiceImplBase {
         @Override
         public void onError(Throwable t) {
             System.err.println("SERVER: Error occurred: " + t.getMessage());
-//            questionTask.cancel(true);
-//            scheduler.shutdownNow();
         }
         
         @Override
@@ -265,10 +264,9 @@ public class TestService extends TestServiceImplBase {
                 );
             System.out.println("Finish testing, average score: " + avgScore);
             responseObserver.onCompleted();
-//            scheduler.shutdown();
         }
-    };
-}
+        };
+    }
     
     
     /** 

@@ -26,6 +26,7 @@ import generated.grpc.testservice.SpeakingResponse;
 import generated.grpc.testservice.WritingQuestion;
 import generated.grpc.testservice.WritingQuestionOrScore;
 import generated.grpc.testservice.WritingResponse;
+import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 
 import javax.sound.sampled.AudioInputStream;
@@ -147,6 +148,7 @@ public class EnglishLearning extends javax.swing.JFrame {
         EquivalentResult = new javax.swing.JTextArea();
         EquivalentScoreDes = new javax.swing.JLabel();
         getEquipScoreButton = new javax.swing.JButton();
+        resetBtn = new javax.swing.JButton();
         writingPanel = new javax.swing.JPanel();
         WQuestionScrollPane = new javax.swing.JScrollPane();
         WQuestionTextArea = new javax.swing.JTextArea();
@@ -492,6 +494,13 @@ public class EnglishLearning extends javax.swing.JFrame {
             }
         });
 
+        resetBtn.setText("Reset");
+        resetBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout IeltsScorePanelLayout = new javax.swing.GroupLayout(IeltsScorePanel);
         IeltsScorePanel.setLayout(IeltsScorePanelLayout);
         IeltsScorePanelLayout.setHorizontalGroup(
@@ -501,32 +510,31 @@ public class EnglishLearning extends javax.swing.JFrame {
                 .addGroup(IeltsScorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(IeltsScorePanelLayout.createSequentialGroup()
                         .addGroup(IeltsScorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(IeltsScorePanelLayout.createSequentialGroup()
-                                .addGroup(IeltsScorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(EquivalentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(EquivalentScoreDes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(getEquipScoreButton)
-                                    .addComponent(enterIELTSScore))
-                                .addGap(18, 18, 18)
-                                .addComponent(EquivalentScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 728, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, IeltsScorePanelLayout.createSequentialGroup()
-                                .addGroup(IeltsScorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(IeltsScoreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(IeltsScoreDes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(IeltsScorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(IeltsScorePanelLayout.createSequentialGroup()
-                                        .addComponent(enterEleScore, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(46, 46, 46)
-                                        .addComponent(getOverallButton))
-                                    .addGroup(IeltsScorePanelLayout.createSequentialGroup()
-                                        .addComponent(eleScoreLabel)
-                                        .addGap(267, 267, 267)
-                                        .addComponent(SendScoreButton, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(EquivalentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(EquivalentScoreDes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(getEquipScoreButton)
+                            .addComponent(enterIELTSScore, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(EquivalentScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 728, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(45, 45, 45))
                     .addGroup(IeltsScorePanelLayout.createSequentialGroup()
-                        .addComponent(IeltsScoreScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 1034, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(44, Short.MAX_VALUE))))
+                        .addComponent(IeltsScoreScroll)
+                        .addGap(44, 44, 44))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, IeltsScorePanelLayout.createSequentialGroup()
+                        .addGroup(IeltsScorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(IeltsScoreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(IeltsScoreDes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(235, 235, 235)
+                        .addGroup(IeltsScorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(enterEleScore, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(eleScoreLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(IeltsScorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(SendScoreButton, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(getOverallButton))
+                        .addGap(18, 18, 18)
+                        .addComponent(resetBtn)
+                        .addGap(48, 48, 48))))
         );
         IeltsScorePanelLayout.setVerticalGroup(
             IeltsScorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -534,18 +542,21 @@ public class EnglishLearning extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(IeltsScorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(IeltsScorePanelLayout.createSequentialGroup()
-                        .addGroup(IeltsScorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(SendScoreButton)
-                            .addComponent(eleScoreLabel))
+                        .addComponent(eleScoreLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(IeltsScorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(getOverallButton)
-                            .addComponent(enterEleScore, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(enterEleScore, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(IeltsScorePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(IeltsScoreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(IeltsScorePanelLayout.createSequentialGroup()
                             .addGap(22, 22, 22)
-                            .addComponent(IeltsScoreDes, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(IeltsScoreDes, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(IeltsScorePanelLayout.createSequentialGroup()
+                        .addComponent(resetBtn)
+                        .addGap(1, 1, 1))
+                    .addGroup(IeltsScorePanelLayout.createSequentialGroup()
+                        .addComponent(SendScoreButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(getOverallButton)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(IeltsScoreScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
@@ -742,7 +753,7 @@ public class EnglishLearning extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("<html> \nPlease record your answer by <br>\nusing Record/ Stop button below\n</html>\n");
+        jLabel3.setText("<html> To record your answer, click the Record/Stop button below. <br><br> This quiz contains 5 questions - press the Next button to continue. <br><br> Press Finish button to receive your score</html> ");
 
         btnSNext.setText("Next");
         btnSNext.addActionListener(new java.awt.event.ActionListener() {
@@ -752,6 +763,11 @@ public class EnglishLearning extends javax.swing.JFrame {
         });
 
         btnSFinish.setText("Finish");
+        btnSFinish.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSFinishActionPerformed(evt);
+            }
+        });
 
         speakLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         speakLabel.setText("SPEAKING TEST");
@@ -765,17 +781,20 @@ public class EnglishLearning extends javax.swing.JFrame {
                     .addGroup(speakingPanelLayout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addGroup(speakingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(speakLabel)))
+                    .addGroup(speakingPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(speakingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(speakingPanelLayout.createSequentialGroup()
                                 .addComponent(btnSNext)
                                 .addGap(46, 46, 46)
                                 .addComponent(btnSFinish))
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(speakLabel)))
-                    .addGroup(speakingPanelLayout.createSequentialGroup()
-                        .addGap(74, 74, 74)
-                        .addGroup(speakingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnSStop)
-                            .addComponent(btnSPlay))))
+                            .addGroup(speakingPanelLayout.createSequentialGroup()
+                                .addGap(52, 52, 52)
+                                .addGroup(speakingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnSStop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnSPlay))))))
                 .addGap(18, 18, 18)
                 .addComponent(SQuestionScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 825, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(38, Short.MAX_VALUE))
@@ -788,8 +807,8 @@ public class EnglishLearning extends javax.swing.JFrame {
                         .addGap(42, 42, 42)
                         .addComponent(speakLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(55, 55, 55)
                         .addComponent(btnSPlay)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSStop)
@@ -1047,12 +1066,43 @@ public class EnglishLearning extends javax.swing.JFrame {
     private void btnSNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSNextActionPerformed
         // TODO add your handling code here:
         try {
-            requestSObserver.onNext(SpeakingResponse.newBuilder().setAnswer(ByteString.copyFrom(audioBytes)).build());
+            if (audioBytes != null && audioBytes.length > 0) {
+            requestSObserver.onNext(SpeakingResponse.newBuilder()
+                .setAnswer(ByteString.copyFrom(audioBytes))
+                .build());
+        } else {
+            System.out.println("Audio empty");
+            requestSObserver.onNext(SpeakingResponse.newBuilder()
+                .setAnswer(ByteString.EMPTY)
+                .build());
+            }
             audioBytes= null;
         } catch (RuntimeException e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btnSNextActionPerformed
+
+    private void resetBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetBtnActionPerformed
+        // TODO add your handling code here:
+        if (requestScoreObserver != null) {
+        requestScoreObserver.onError( 
+                Status.CANCELLED
+                .withDescription("Stream reset requested by user")
+                .asRuntimeException()); 
+        inputCount=1;
+        IeltsScoreResult.setText("Please enter your new set of element scores");
+    }
+        getOverallIelts(); 
+    }//GEN-LAST:event_resetBtnActionPerformed
+
+    private void btnSFinishActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSFinishActionPerformed
+        // TODO add your handling code here:
+        try {
+            requestSObserver.onCompleted();
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnSFinishActionPerformed
     
     /* 
     Method to show the pannel linked with different menu bar and item  
@@ -1440,7 +1490,7 @@ public class EnglishLearning extends javax.swing.JFrame {
             public void onNext(FinalScore msg) {
                 System.out.println(LocalTime.now().toString() + ": response from server " + msg.getAverageScore());
                 double result = msg.getAverageScore();
-                IeltsScoreResult.setText("" + result);
+                IeltsScoreResult.setText("Your overall IELST score: " + result);
             }
 
             @Override
@@ -1590,6 +1640,7 @@ public class EnglishLearning extends javax.swing.JFrame {
     private javax.swing.ButtonGroup optionGroup;
     private javax.swing.JPanel readingPanel;
     private javax.swing.JMenuItem readingTest;
+    private javax.swing.JButton resetBtn;
     private javax.swing.JLabel speakLabel;
     private javax.swing.JPanel speakingPanel;
     private javax.swing.JMenuItem speakingTest;

@@ -531,41 +531,37 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="EquivalentLabel" min="-2" max="-2" attributes="0"/>
-                                          <Component id="EquivalentScoreDes" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="getEquipScoreButton" min="-2" max="-2" attributes="0"/>
-                                          <Component id="enterIELTSScore" alignment="0" max="32767" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                                      <Component id="EquivalentScroll" min="-2" pref="728" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="IeltsScoreLabel" min="-2" max="-2" attributes="0"/>
-                                          <Component id="IeltsScoreDes" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <Component id="enterEleScore" min="-2" pref="296" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-                                              <Component id="getOverallButton" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" attributes="0">
-                                              <Component id="eleScoreLabel" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="267" max="-2" attributes="0"/>
-                                              <Component id="SendScoreButton" min="-2" pref="88" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                  </Group>
+                                  <Component id="EquivalentLabel" min="-2" max="-2" attributes="0"/>
+                                  <Component id="EquivalentScoreDes" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="getEquipScoreButton" min="-2" max="-2" attributes="0"/>
+                                  <Component id="enterIELTSScore" alignment="0" pref="287" max="32767" attributes="0"/>
                               </Group>
+                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                              <Component id="EquivalentScroll" min="-2" pref="728" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="IeltsScoreScroll" min="-2" pref="1034" max="-2" attributes="0"/>
-                              <EmptySpace pref="44" max="32767" attributes="0"/>
+                              <Component id="IeltsScoreScroll" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="IeltsScoreLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="IeltsScoreDes" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="235" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="enterEleScore" min="-2" pref="296" max="-2" attributes="0"/>
+                                  <Component id="eleScoreLabel" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="SendScoreButton" alignment="0" min="-2" pref="88" max="-2" attributes="0"/>
+                                  <Component id="getOverallButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="resetBtn" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -577,15 +573,9 @@
                       <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="SendScoreButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="eleScoreLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="eleScoreLabel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="getOverallButton" min="-2" max="-2" attributes="0"/>
-                                  <Component id="enterEleScore" alignment="1" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="enterEleScore" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                               <Component id="IeltsScoreLabel" min="-2" max="-2" attributes="0"/>
@@ -593,6 +583,15 @@
                                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                                   <Component id="IeltsScoreDes" min="-2" pref="22" max="-2" attributes="0"/>
                               </Group>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="resetBtn" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="SendScoreButton" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="getOverallButton" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -712,6 +711,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="getEquipScoreButtonActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="resetBtn">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Reset"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="resetBtnActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
@@ -984,20 +991,25 @@
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="btnSNext" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-                                      <Component id="btnSFinish" min="-2" max="-2" attributes="0"/>
-                                  </Group>
                                   <Component id="jLabel3" min="-2" pref="190" max="-2" attributes="0"/>
                                   <Component id="speakLabel" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="btnSStop" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnSPlay" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="btnSNext" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                                      <Component id="btnSFinish" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="btnSStop" max="32767" attributes="0"/>
+                                          <Component id="btnSPlay" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
                               </Group>
                           </Group>
                       </Group>
@@ -1015,8 +1027,8 @@
                               <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                               <Component id="speakLabel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel3" min="-2" pref="48" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                               <Component id="btnSPlay" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnSStop" min="-2" max="-2" attributes="0"/>
@@ -1070,7 +1082,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
               <Properties>
-                <Property name="text" type="java.lang.String" value="&lt;html&gt; &#xa;Please record your answer by &lt;br&gt;&#xa;using Record/ Stop button below&#xa;&lt;/html&gt;&#xa;"/>
+                <Property name="text" type="java.lang.String" value="&lt;html&gt; To record your answer, click the Record/Stop button below. &lt;br&gt;&lt;br&gt; This quiz contains 5 questions - press the Next button to continue. &lt;br&gt;&lt;br&gt; Press Finish button to receive your score&lt;/html&gt; "/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="btnSNext">
@@ -1085,6 +1097,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Finish"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSFinishActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="speakLabel">
               <Properties>

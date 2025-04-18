@@ -53,17 +53,12 @@ public class TestClient {
         syncStub = TestServiceGrpc.newBlockingStub(channel);  
     }
     
-    //StreamObserver<ListeningResponse>
+    //Speaking
     public StreamObserver<SpeakingResponse> getSpeakingTest(StreamObserver<SpeakingQuestionOrScore> responseObserver) {
     
     StreamObserver<SpeakingResponse> requestSObserver = asyncStub.getSpeakingTest(
         new StreamObserver<SpeakingQuestionOrScore>() {
             @Override
-            /**
-            * NOTE that in client streaming we expect only one response from the server.So we should see
-            * this message only once. We could add some error handling in here to prevent the client from processing
-            * more than one reply from the server
-            */
             public void onNext(SpeakingQuestionOrScore response) {
                 System.out.println("DEBUG - Client received: " + response);
                 responseObserver.onNext(response);
@@ -91,11 +86,6 @@ public class TestClient {
     StreamObserver<ListeningResponse> requestLObserver = asyncStub.getListeningTest(
         new StreamObserver<ListeningQuestionOrScore>() {
             @Override
-            /**
-            * NOTE that in client streaming we expect only one response from the server.So we should see
-            * this message only once. We could add some error handling in here to prevent the client from processing
-            * more than one reply from the server
-            */
             public void onNext(ListeningQuestionOrScore response) {
                 System.out.println("DEBUG - Client received: " + response);
                 responseObserver.onNext(response);
