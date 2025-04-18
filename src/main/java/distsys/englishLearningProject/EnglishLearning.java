@@ -64,10 +64,12 @@ public class EnglishLearning extends javax.swing.JFrame {
     private final TestClient testClient;
     private final ScoreCalculateClient scoreClient;
     private String selectedAnswer = null;
+    
+    // declare an instance of AudioRecorder supporting recording user answer
     private AudioRecorder recorder;
     private byte[] audioBytes;
     
-    // declare the streaming used
+    // declare the stream used
     private StreamObserver<ReadingResponse> requestObserver;
     private StreamObserver<WritingResponse> requestWObserver;
     private StreamObserver<ListeningResponse> requestLObserver;
@@ -1043,12 +1045,6 @@ public class EnglishLearning extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
            audioBytes = recorder.stopRecording();
-            // send to gRPC server
-//            AudioRequest request = AudioRequest.newBuilder()
-//                .setAudioData(ByteString.copyFrom(audioBytes))
-//                .build();
-//            AudioResponse response = stub.uploadAudio(request);
-//            JOptionPane.showMessageDialog(this, "Sent to server: " + response.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1282,7 +1278,7 @@ public class EnglishLearning extends javax.swing.JFrame {
         requestObserver = testClient.getReadingTest(responseObserver);
     }
     
-     // method to show the reading test panel when the user choose reading test from menu item
+    // method to show the writing test panel when the user choose writing test from menu item
     private void showWritingTestPanel() {
         ((CardLayout)mainPanel.getLayout()).show(mainPanel, "card7");
         showWritingTest();
@@ -1331,9 +1327,9 @@ public class EnglishLearning extends javax.swing.JFrame {
 
         // Start the test
         requestWObserver = testClient.getWritingTest(responseWObserver);
-
     }
     
+    // method to show the listening test panel when the user choose listening test from menu item
     private void showListeningTestPanel() {
         ((CardLayout)mainPanel.getLayout()).show(mainPanel, "card8");
         showListeningTest();
@@ -1420,6 +1416,7 @@ public class EnglishLearning extends javax.swing.JFrame {
         requestLObserver = testClient.getListeningTest(responseLObserver);
     }
     
+    // method to show the speaking test panel when the user choose speaking test from menu item
     private void showSpeakingTestPanel() {
         ((CardLayout)mainPanel.getLayout()).show(mainPanel, "card9");
         showSpeakingTest();
@@ -1469,10 +1466,6 @@ public class EnglishLearning extends javax.swing.JFrame {
         requestSObserver = testClient.getSpeakingTest(responseSObserver);
     }
     
-    private void showTestPanel(String testType) {
-        JOptionPane.showMessageDialog(this, "Đã chọn bài test: " + testType);
-    }
-
     // method to show the score panel when the user choose score Calculation from menu item
     private void showScorePanel() {
         ((CardLayout)mainPanel.getLayout()).show(mainPanel, "card6");

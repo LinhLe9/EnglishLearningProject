@@ -25,13 +25,13 @@ public class NewWordsService extends NewWordsServiceImplBase {
 
     public static void main(String[] args) {
 
-        NewWordsService zooServer = new NewWordsService();
+        NewWordsService newWordServer = new NewWordsService();
 
         int port = 50052;
 
         try {
             Server server = ServerBuilder.forPort(port)
-                    .addService(zooServer)
+                    .addService(newWordServer)
                     .build()
                     .start();
             logger.info("Server started, listening on " + port);

@@ -36,8 +36,6 @@ public class ListeningTest {
         return keys.get(rand.nextInt(keys.size()));
     }
     
-    
-    
     private void loadExercises(String filePath) {
         try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("data/" + filePath)) {
             if (inputStream == null) {
